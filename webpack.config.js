@@ -4,7 +4,8 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
     entry: './src/main.js',
-    output: {
+    output: { 
+        // path: path.resolve(__dirname, '../../laragon/www/imall'),
         path: path.resolve(__dirname, './dist'),
         publicPath: '/',
         filename: 'build.js?[hash]'

@@ -8,6 +8,8 @@ import App from './App.vue'
 // vue-router
 import router from './router'
 
+// import './assets/css/reset'
+
 Vue.use(ElementUI)
 
 new Vue({
