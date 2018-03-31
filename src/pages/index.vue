@@ -6,10 +6,10 @@
     <!-- 轮播图组件 -->
     <carousel></carousel>
     <!-- 行内列表组件 -->
-    <inlineList lineCount=1></inlineList>
+    <InlineList :itemData= itemData4  :lineItemCount = 4  ></InlineList>
+    <InlineList :itemData= itemData5  :lineItemCount = 5  ></InlineList>
     <LayoutB></LayoutB>
-    <inlineList lineCount=2></inlineList>
-    <LayoutTrain></LayoutTrain>
+    <LayoutTrain :trainData = "trainData"></LayoutTrain>
   </div>
 </template>
 <script>
@@ -22,9 +22,37 @@
   import Clover4 from '../components/clover4'
   import Column3 from '../components/column3'
 
+  const trainDataExample = {
+          name:'产品名称',
+          info:'产品介绍',
+          newPrice:'产品折扣价',
+          oldPrice:'产品原价',
+          tag:'直降700',
+          imageUrl:'/images/default.jpg',
+          imageAlt:'default.jpg'
+  }
+  
+  const itemDataExample={
+    name:'name',
+    imageUrl:'/images/default.jpg',
+    imageAlt:'default.jpg'
+  }
   export default {
 
     name: 'index',
+    data:function(){
+      return{ 
+        trainData:[trainDataExample,trainDataExample,trainDataExample],
+        
+        itemData4:[
+          itemDataExample,itemDataExample,itemDataExample,itemDataExample,
+          itemDataExample,itemDataExample,itemDataExample,itemDataExample,
+        ],
+        itemData5:[
+          itemDataExample,itemDataExample,itemDataExample,itemDataExample,itemDataExample,
+        ]
+      }
+    },
     components: {
       TopBar,
       Carousel,

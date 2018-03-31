@@ -10,7 +10,7 @@
             <small>介绍</small>
           </p>
           <p>
-              <img src="../assets/images/default.jpg" alt="default.jpg">
+              <img src="/images/default.jpg" alt="default.jpg">
           </p>
         </li>
       </ul>
@@ -28,7 +28,7 @@ export default {
     background-color: $snow;
     h5 {
       // background-color: $ink;
-      background-image: url('../assets/images/default.jpg');
+      background-image: url('/images/default.jpg');
       background-repeat: no-repeat;
       background-position: center;
       background-size: cover;

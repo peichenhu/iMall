@@ -69,9 +69,6 @@
   }
 
   nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
     background: gray;
     border-top: 1px solid $snow/1.05;
   }
@@ -81,6 +78,8 @@
     flex-flow: column nowrap;
     justify-content: center;
     height: 50px;
+    font-size: 12px;
+    text-align: center;
   }
 
 </style>

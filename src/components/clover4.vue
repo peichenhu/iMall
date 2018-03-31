@@ -16,7 +16,7 @@
               </small>
             </span>
             <span>
-              <img src="../assets/images/default.jpg" alt="default.jpg">
+              <img src="/images/default.jpg" alt="default.jpg">
             </span>
           </p>
         </li>

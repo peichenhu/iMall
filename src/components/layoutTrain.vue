@@ -1,26 +1,24 @@
 <template>
     <!-- 小火车布局 -->
     <el-row class="train">
-      <h5>分类标题
-        <i class="el-icon-d-arrow-right"></i>
-      </h5>
+      
+      <h5 class="bg_white color_ink">分类标题 <i class="icon-right"></i> </h5>
       <ul>
-        <li v-for="(item, index) in 7" :key="index">
+        <li v-for="(item, index) in trainData" :key="index">
           <p>
-              <img src="../assets/images/default.jpg" alt="default.jpg">
+              <img :src="item.imageUrl" :alt="item.imageAlt">
           </p>
           <p>
-            <span>标题</span>
-            <span>介绍</span>
-            <span>新价格
+            <span>{{item.name}}</span>
+            <span>{{item.info}}</span>
+            <span>{{item.newPrice}}
               <small>
-                <del> 旧价格</del>
+                <del> {{item.oldPrice}}</del>
               </small>
             </span>
           </p>
           <div class="float_tag">
-            <span>直降
-              <br>700</span>
+            <span>{{item.tag}}</span>
           </div>
         </li>
       </ul>
@@ -28,22 +26,18 @@
 </template>
 <script>
 export default {
+  props:['trainData']
   
 }
 </script>
 <style lang="scss" scoped>
 
   @import '../assets/css/config.scss';
+  h5{
+    text-indent: 15px;
+  }
   .train {
     background-color: $snow;
-    h5 {
-      background-color: $ink;
-      color: white;
-      width: 100%;
-      height: 30px;
-      text-align: center;
-      line-height: 30px;
-    }
     ul {
       display: flex;
       flex-flow: row wrap;
@@ -82,6 +76,7 @@ export default {
           background-color: red;
           border-radius: 50%;
           color: white;
+          text-align: center;
           top: 20px;
           left: 20px;
         }

@@ -3,14 +3,14 @@
     <!-- B型布局 -->
     <el-row class="layout_b">
       <div class="b_left">
-              <img src="../assets/images/default.jpg" alt="default.jpg">
+              <img src="/images/default.jpg" alt="default.jpg">
       </div>
       <ul class="b_right">
         <li>
-              <img src="../assets/images/default-half.jpg" alt="default.jpg">
+              <img src="/images/default-half.jpg" alt="default.jpg">
         </li>
         <li>
-              <img src="../assets/images/default-half.jpg" alt="default.jpg">
+              <img src="/images/default-half.jpg" alt="default.jpg">
         </li>
       </ul>
     </el-row>

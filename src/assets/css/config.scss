@@ -4,3 +4,34 @@
   $peach:#FF5F5F; // 桃色
   $cyan:#83FFE6; // 青色
   $snow:#FAFAFA; // 雪色
+
+  .bg_ink{ background-color: $ink; }
+  .color_ink{ color: $ink }
+
+  .bg_peach{ background-color: $peach; }
+  .color_peach{ color: $peach }
+
+  .bg_cyan{ background-color: $cyan; }
+  .color_cyan{ color: $cyan }
+
+  .bg_snow{ background-color: $snow; }
+  .color_snow{ color: $snow }
+
+  .bg_white{ background-color: white; }
+  .color_white{ color: white }
+
+  hr{
+    border-color: $snow;
+  }
+  .fixed_top{
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    top: 0;
+  }
+  .fixed_bottom{
+    position: fixed;
+    z-index: 9999;
+    width: 100%;
+    bottom: 0;
+  }

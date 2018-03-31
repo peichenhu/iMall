@@ -20,13 +20,15 @@
       list-style-type: none;
       padding: 0;
     }
+    a{
+      text-decoration: none;
+    }
   }
 
   #app {
     font-family: Helvetica, Arial, sans-serif, 'Avenir';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    text-align: center;
     color: $ink;
     background-color: $snow;
     font-size: 14px;
