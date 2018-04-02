@@ -1,37 +1,85 @@
+/*resetcss*/
 
-  /*resetcss*/
-  $ink:#2C2C2C; // 墨色
-  $peach:#FF5F5F; // 桃色
-  $cyan:#83FFE6; // 青色
-  $snow:#FAFAFA; // 雪色
+$ink:#2C2C2C; // 墨色
+$peach:#FF5F5F; // 桃色
+$cyan:#83FFE6; // 青色
+$snow:#FAFAFA; // 雪色
+$cloud:#EEEEEE; // 云色
+.bg_ink {
+  background-color: $ink;
+}
 
-  .bg_ink{ background-color: $ink; }
-  .color_ink{ color: $ink }
+.color_ink {
+  color: $ink
+}
 
-  .bg_peach{ background-color: $peach; }
-  .color_peach{ color: $peach }
+.bg_peach {
+  background-color: $peach;
+}
 
-  .bg_cyan{ background-color: $cyan; }
-  .color_cyan{ color: $cyan }
+.color_peach {
+  color: $peach
+}
 
-  .bg_snow{ background-color: $snow; }
-  .color_snow{ color: $snow }
+.bg_cyan {
+  background-color: $cyan;
+}
 
-  .bg_white{ background-color: white; }
-  .color_white{ color: white }
+.color_cyan {
+  color: $cyan
+}
 
-  hr{
-    border-color: $snow;
+.bg_snow {
+  background-color: $snow;
+}
+
+.color_snow {
+  color: $snow
+}
+
+.bg_white {
+  background-color: white;
+}
+
+.color_white {
+  color: white
+}
+
+hr {
+  border-color: $cloud;
+}
+
+.fixed_top {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  top: 0;
+}
+
+.fixed_bottom {
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  bottom: 0;
+}
+
+.clearFloat {
+  zoom: 1;
+  &:after {
+    display: block;
+    content: " ";
+    height: 0;
+    clear: both;
+    visibility: hidden;
   }
-  .fixed_top{
-    position: fixed;
-    z-index: 9999;
+}
+h3{
+    text-indent: 1em;
     width: 100%;
-    top: 0;
-  }
-  .fixed_bottom{
-    position: fixed;
-    z-index: 9999;
-    width: 100%;
-    bottom: 0;
-  }
+    height: 30px;
+    line-height: 30px;
+}
+
+.el-radio__inner::after{
+  background-color: transparent;
+}

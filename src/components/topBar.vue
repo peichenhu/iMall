@@ -10,7 +10,7 @@
       <!--消息-->
       <div class="top_msg">
         <el-badge is-dot class="item">
-          <i class="icon-liuyan"></i>
+          <i class="iconfont icon-msg"></i>
         </el-badge>
       </div>
     </el-row>

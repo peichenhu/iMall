@@ -4,16 +4,15 @@
     <!-- 搜索消息栏组件 -->
     <topBar></topBar>
     <!-- 轮播图组件 -->
-    <carousel></carousel>
+    <carousel :carouselData="carouselData"></carousel>
     <!-- 行内列表组件 -->
-    <InlineList :itemData= itemData4  :lineItemCount = 4  ></InlineList>
-    <InlineList :itemData= itemData5  :lineItemCount = 5  ></InlineList>
+    <InlineList :itemData="itemData4" :lineItemCount=4></InlineList>
+    <InlineList :itemData="itemData5" :lineItemCount=5></InlineList>
     <LayoutB></LayoutB>
-    <LayoutTrain :trainData = "trainData"></LayoutTrain>
+    <LayoutTrain :trainData="trainData"></LayoutTrain>
   </div>
 </template>
 <script>
-
   import TopBar from '../components/topBar'
   import Carousel from '../components/carousel'
   import InlineList from '../components/inlineList'
@@ -22,34 +21,45 @@
   import Clover4 from '../components/clover4'
   import Column3 from '../components/column3'
 
-  const trainDataExample = {
-          name:'产品名称',
-          info:'产品介绍',
-          newPrice:'产品折扣价',
-          oldPrice:'产品原价',
-          tag:'直降700',
-          imageUrl:'/images/default.jpg',
-          imageAlt:'default.jpg'
+  const carouselDataExample = {
+    name: 'name',
+    info: 'info',
+    imageUrl: '/images/default-half.jpg',
+    imageAlt: 'default.jpg',
   }
-  
-  const itemDataExample={
-    name:'name',
-    imageUrl:'/images/default.jpg',
-    imageAlt:'default.jpg'
+
+  const trainDataExample = {
+    name: '产品名称',
+    info: '产品介绍',
+    newPrice: '产品折扣价',
+    oldPrice: '产品原价',
+    tag: '直降700',
+    imageUrl: '/images/default.jpg',
+    imageAlt: 'default.jpg'
+  }
+
+  const itemDataExample = {
+    name: 'name',
+    imageUrl: '/images/default.jpg',
+    imageAlt: 'default.jpg'
   }
   export default {
 
     name: 'index',
-    data:function(){
-      return{ 
-        trainData:[trainDataExample,trainDataExample,trainDataExample],
-        
-        itemData4:[
-          itemDataExample,itemDataExample,itemDataExample,itemDataExample,
-          itemDataExample,itemDataExample,itemDataExample,itemDataExample,
+    data: function () {
+      return {
+        carouselData: [
+          carouselDataExample, carouselDataExample, carouselDataExample, carouselDataExample
         ],
-        itemData5:[
-          itemDataExample,itemDataExample,itemDataExample,itemDataExample,itemDataExample,
+        trainData: [
+          trainDataExample, trainDataExample, trainDataExample
+        ],
+        itemData4: [
+          itemDataExample, itemDataExample, itemDataExample, itemDataExample,
+          itemDataExample, itemDataExample, itemDataExample, itemDataExample,
+        ],
+        itemData5: [
+          itemDataExample, itemDataExample, itemDataExample, itemDataExample, itemDataExample,
         ]
       }
     },
@@ -66,8 +76,8 @@
 
 </script>
 <style lang="scss" scoped>
+  #index {
+    margin-bottom: 50px;
+  }
 
-#index{
-  margin-bottom: 50px;
-}
 </style>

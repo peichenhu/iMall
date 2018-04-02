@@ -1,41 +1,38 @@
 <template>
-    <!-- 小火车布局 -->
-    <el-row class="train">
-      
-      <h5 class="bg_white color_ink">分类标题 <i class="icon-right"></i> </h5>
-      <ul>
-        <li v-for="(item, index) in trainData" :key="index">
-          <p>
-              <img :src="item.imageUrl" :alt="item.imageAlt">
-          </p>
-          <p>
-            <span>{{item.name}}</span>
-            <span>{{item.info}}</span>
-            <span>{{item.newPrice}}
-              <small>
-                <del> {{item.oldPrice}}</del>
-              </small>
-            </span>
-          </p>
-          <div class="float_tag">
-            <span>{{item.tag}}</span>
-          </div>
-        </li>
-      </ul>
-    </el-row>
+  <!-- 小火车布局 -->
+  <el-row class="train">
+
+    <!-- <h5 class="bg_white color_ink">分类标题 <i class="icon-right"></i> </h5> -->
+    <ul>
+      <li v-for="(item, index) in trainData" :key="index">
+        <p>
+          <img :src="item.imageUrl" :alt="item.imageAlt">
+        </p>
+        <p>
+          <span>{{item.name}}</span>
+          <span v-if="item.info!==''">{{item.info}}</span>
+          <span>{{item.newPrice}}
+            <small>
+              <del> {{item.oldPrice}}</del>
+            </small>
+          </span>
+        </p>
+        <div class="float_tag" v-if="item.tag!==''">
+          <span>{{item.tag}}</span>
+        </div>
+      </li>
+    </ul>
+  </el-row>
 </template>
 <script>
-export default {
-  props:['trainData']
-  
-}
+  export default {
+    props: ['trainData']
+
+  }
+
 </script>
 <style lang="scss" scoped>
-
   @import '../assets/css/config.scss';
-  h5{
-    text-indent: 15px;
-  }
   .train {
     background-color: $snow;
     ul {
@@ -57,6 +54,7 @@ export default {
           text-align: left;
           >span {
             display: block;
+            line-height: 24px;
             &:last-child {
               color: red;
               small {
@@ -80,7 +78,8 @@ export default {
           top: 20px;
           left: 20px;
         }
-      } 
+      }
     }
   }
+
 </style>

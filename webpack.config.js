@@ -69,14 +69,14 @@ module.exports = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: '/images/[name].[ext]?[hash]'
+          name: './images/[name].[ext]?[hash]'
         }
       }, {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
         options: {
           limit: 10000,
-          name: '/fonts/[name].[ext]?[hash]'
+          name: './fonts/[name].[ext]?[hash]'
         }
       }
     ],

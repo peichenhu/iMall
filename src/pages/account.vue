@@ -1,11 +1,31 @@
 <template>
-  
+
 </template>
 <script>
-export default {
-  
-}
+  export default {
+      components:{
+      },
+      data:function(){
+          return {
+
+          }
+      },
+      computed:{
+          test:function(){
+              return "test";
+          }
+      },
+      methods:{
+          fun:function(){
+              return "fu"
+          }
+      }
+
+  }
+
 </script>
 <style lang="scss" scoped>
-
+    #shoppingcart{
+        display: block;
+    }
 </style>

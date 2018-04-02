@@ -54,15 +54,9 @@
 
 <style lang="scss" scoped>
 
-    h3,h4,h5 {
-      width: 100%;
-      height: 30px;
-      text-align: left;
-      text-indent: 15px;
-      line-height: 30px;
-    }
     
 #types{
+  margin-top: 50px;
   margin-bottom: 50px;
 }
 

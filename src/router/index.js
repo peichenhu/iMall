@@ -11,13 +11,16 @@ import Types from '../pages/types'
 import ShoppingCart from '../pages/shoppingcart'
 // 账户
 import Account from '../pages/account'
+// 产品
+import Product from '../pages/product'
 
 // 2. 定义路由
 const routes = [
     { path: '/', component: Index },
     { path: '/types', component: Types },
-    { path: '/shoppingcart', component: Types },
-    { path: '/account', component: Account }
+    { path: '/shoppingcart', component: ShoppingCart },
+    { path: '/account', component: Account },
+    { path: '/product', component: Product }
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置

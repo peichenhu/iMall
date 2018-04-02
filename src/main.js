@@ -8,9 +8,14 @@ import App from './App.vue'
 // vue-router
 import router from './router'
 
-// import './assets/css/reset'
 
-Vue.use(ElementUI)
+import VueAwesomeSwiper from 'vue-awesome-swiper'
+
+// require styles
+import 'swiper/dist/css/swiper.css'
+
+
+Vue.use(ElementUI,VueAwesomeSwiper)
 
 new Vue({
     el: '#app',
