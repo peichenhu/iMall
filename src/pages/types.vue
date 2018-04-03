@@ -26,9 +26,12 @@
   import TopBar from '../components/topBar'
   import InlineList from '../components/inlineList'
 
+  const DefaultIMg = 'https://git.io/vxPwn';
+  const DefaultHalfIMg = 'https://git.io/vxPVy';
+
   const itemDataExample={
     name:'name',
-    imageUrl:'/images/default.jpg',
+    imageUrl: DefaultIMg,
     imageAlt:'default.jpg'
   }
 
@@ -58,6 +61,9 @@
 #types{
   margin-top: 50px;
   margin-bottom: 50px;
+  h3{
+    text-indent: 10px;
+  }
 }
 
 </style>

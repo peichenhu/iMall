@@ -27,13 +27,16 @@
   import TitleBar from "../components/titleBar"
   import LayoutTrain from "../components/layoutTrain"
 
+  const DefaultIMg = 'https://git.io/vxPwn';
+  const DefaultHalfIMg = 'https://git.io/vxPVy';
+
   const trainDataExample = {
     name: '产品名称',
     info: '',
     newPrice: '产品折扣价',
     oldPrice: '产品原价',
     tag: '',
-    imageUrl: '/images/default.jpg',
+    imageUrl: DefaultIMg,
     imageAlt: 'default.jpg'
   }
 
@@ -84,6 +87,7 @@
 
   h3 {
     margin-bottom: 2px;
+    text-indent: 10px;
   }
 
 </style>

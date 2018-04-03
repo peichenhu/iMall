@@ -41,9 +41,9 @@
       li {
         position: relative;
         background-color: white;
-        width: calc(50% - 31px);
+        width: calc(50% - 21px);
         margin-bottom: 2px;
-        padding: 15px;
+        padding: 10px;
         &:nth-child() {
           margin-right: 1px;
         }

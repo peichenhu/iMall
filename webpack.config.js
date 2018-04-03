@@ -5,13 +5,14 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
-
 module.exports = {
   entry: './src/main.js',
   output: {
-    // path: path.resolve(__dirname, '../../laragon/www/imall'),
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/',
+    // path: path.resolve(__dirname, '../../laragon/www/iMall'), // 部署到Laragon
+    // path: path.resolve(__dirname, '../iHexo/source/demo/iMall'), // 部署到iHexo
+    // publicPath: '/demo/iMall/',// 部署到iHexo
+    path: path.resolve(__dirname, './dist'),// 部署到 nodejs
+    publicPath: '/',// 部署到 nodejs
     filename: 'build.js?[hash]'
   },
   module: {
@@ -69,14 +70,14 @@ module.exports = {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
         options: {
-          name: './images/[name].[ext]?[hash]'
+          name: './images/[name].[ext]?[hash]' // 源文件
         }
       }, {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
         options: {
           limit: 10000,
-          name: './fonts/[name].[ext]?[hash]'
+          name: './fonts/[name].[ext]?[hash]' // 源文件
         }
       }
     ],
@@ -94,12 +95,13 @@ module.exports = {
       title: 'shopping',
     }),
     // copy custom static assets
-    new CopyWebpackPlugin([{
-      from: path.resolve(__dirname, './static'),
-      to: path.resolve(__dirname, './dist'),
-    //   to: path.resolve(__dirname, '../../laragon/www/imall'),
-      ignore: ['.*']
-    }]),
+    // new CopyWebpackPlugin([{
+    //   from: path.resolve(__dirname, './static'),
+    //   to: path.resolve(__dirname, './dist'),
+    //   to: path.resolve(__dirname, '../iHexo/source/demo/imall'),
+    // //   to: path.resolve(__dirname, '../../laragon/www/imall'),
+    //   ignore: ['.*']
+    // }]),
 
     new FriendlyErrorsPlugin(),
   ],

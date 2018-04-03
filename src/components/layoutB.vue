@@ -3,20 +3,22 @@
     <!-- B型布局 -->
     <el-row class="layout_b">
       <div class="b_left">
-              <img src="/images/default.jpg" alt="default.jpg">
+              <img :src="layoutData.image1.imageUrl" :alt="layoutData.image1.imageAlt">
       </div>
       <ul class="b_right">
         <li>
-              <img src="/images/default-half.jpg" alt="default.jpg">
+              <img :src="layoutData.image2.imageUrl" :alt="layoutData.image2.imageAlt">
         </li>
         <li>
-              <img src="/images/default-half.jpg" alt="default.jpg">
+              <img :src="layoutData.image3.imageUrl" :alt="layoutData.image3.imageAlt">
         </li>
       </ul>
     </el-row>
 </template>
 <script>
 export default {
+  name:'',
+  props:['layoutData']
   
 }
 </script>

@@ -43,18 +43,96 @@
     <!-- 产品参数 颜色 -->
     <el-row class="product_parameter">
       <h3>颜色</h3>
-      <el-radio-group v-model="radio" size="mini">
-          <el-radio border label="1" dotcolor="#555">墨色</el-radio>
-          <el-radio border label="2">桃色</el-radio>
-          <el-radio border label="3">桃色</el-radio>
-          <el-radio border label="4">桃色</el-radio>
-          <el-radio border label="5">桃色</el-radio>
-          <el-radio border label="6">桃色</el-radio>
+      <el-radio-group v-model="radio1" size="mini">
+        <el-radio border label="1" dotcolor="#555">墨色</el-radio>
+        <el-radio border label="2">桃色</el-radio>
+        <el-radio border label="3">雪色</el-radio>
+        <el-radio border label="4">云色</el-radio>
       </el-radio-group>
     </el-row>
     <!-- 产品参数 规格 -->
+    <el-row class="product_parameter">
+      <h3>规格</h3>
+      <el-radio-group v-model="radio2" size="mini">
+        <el-radio border label="1" dotcolor="#555">4G+64G</el-radio>
+        <el-radio border label="2">4G+128G</el-radio>
+        <el-radio border label="3">6G+64G</el-radio>
+        <el-radio border label="4">4G+128G</el-radio>
+      </el-radio-group>
 
+    </el-row>
+    <!-- 产品参数 套装 -->
+    <el-row class="product_suit">
+      <h3>套装</h3>
+      <el-collapse accordion>
+        <el-collapse-item>
+          <template slot="title">
+            <el-radio v-model="radio3" label=" 标准版" size="mini"></el-radio>
+            ：2899，
+            <del>3288</del>,省 200 元
+            <i class="header-icon el-icon-info"></i>
+          </template>
+          <div class="suit_list">
+            <p>
+              <img :src="DefaultIMg" :alt="DefaultIMg">
+            </p>
+            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
+            <p>￥1399</p>
+          </div>
+          <div class="suit_list">
+            <p>
+              <img :src="DefaultIMg" :alt="DefaultIMg">
+            </p>
+            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
+            <p>￥1399</p>
+          </div>
+          <div class="suit_list">
+            <p>
+              <img :src="DefaultIMg" :alt="DefaultIMg">
+            </p>
+            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
+            <p>￥1399</p>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item>
+          <template slot="title">
+            <el-radio v-model="radio3" label=" 套装版" size="mini"></el-radio>
+            ：2899，
+            <del>3288</del>,省 200 元
+            <i class="header-icon el-icon-info"></i>
+          </template>
+          <div class="suit_list">
+            <p>
+              <img :src="DefaultIMg" :alt="DefaultIMg">
+            </p>
+            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
+            <p>￥1399</p>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item>
+          <template slot="title">
+            <el-radio v-model="radio3" label=" 单机版" size="mini"></el-radio>
+            ：2899，
+            <del>3288</del>,省 200 元
+          </template>
+          <div class="suit_list">
+            <p>
+              <img :src="DefaultIMg" :alt="DefaultIMg">
+            </p>
+            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
+            <p>￥1399</p>
+          </div>
+        </el-collapse-item>
+      </el-collapse>
+    </el-row>
     <el-row>
+      <h3>概述</h3>
+      <div>
+        <img :src="DefaultIMg" alt="">
+        <img :src="DefaultIMg" alt="">
+        <img :src="DefaultIMg" alt="">
+        <img :src="DefaultIMg" alt="">
+      </div>
       
     </el-row>
 
@@ -64,10 +142,13 @@
 <script>
   import Carousel from '../components/carousel'
 
+  const DefaultIMg = 'https://git.io/vxPwn';
+  const DefaultHalfIMg = 'https://git.io/vxPVy';
+
   const carouselDataExample = {
     name: 'name',
     info: 'info',
-    imageUrl: '/images/default-half.jpg',
+    imageUrl: DefaultHalfIMg,
     imageAlt: 'default.jpg',
   }
   export default {
@@ -75,10 +156,13 @@
     name: 'index',
     data: function () {
       return {
+        DefaultIMg,
         carouselData: [
           carouselDataExample, carouselDataExample, carouselDataExample, carouselDataExample
         ],
-        radio: '1'
+        radio1: '1',
+        radio2: '1',
+        radio3: '1'
       }
     },
 
@@ -90,46 +174,73 @@
 </script>
 <style lang="scss" scoped>
   @import '../assets/css/config.scss';
-  .backBar {
-    height: 50px;
-    line-height: 50px;
-    border-bottom: 1px solid $cloud;
-    b {
-      font-size: 18px;
+
+  #product {
+    margin-bottom: 60px;
+    .el-row {
+      padding: 10px;
     }
-  }
-
-  .product_brief {
-    padding: 15px;
-    margin-top: 2px;
-    line-height: 18px;
-  }
-
-  .product_sale {
-    margin-top: 2px;
     h3 {
-      border-bottom: 1px solid $snow;
-      border-top: 1px solid $snow;
+      border-bottom: 1px solid #FAFAFA;
     }
-    p {
-      line-height: 24px;
-      padding: 0 15px;
-      span {
-        padding: 1px 2px;
-        margin-right: 10px;
-        border: 1px solid $peach ;
+    .suit_list {
+      display: flex;
+      flex-flow: row nowrap;
+      margin-bottom: 10px;
+      p {
+        &:first-child {
+          width: 25%;
+          margin: 0 10px;
+          flex-grow: 0;
+        }
+        &:last-child {
+          width: 25%;
+          margin-left: 10px;
+          flex-grow: 0;
+
+        }
+      }
+    }
+    .el-collapse-item.is-active {
+      background-color: $peach;
+    }
+
+    .backBar {
+      padding: 0 10px;
+      height: 50px;
+      line-height: 50px;
+      border-bottom: 1px solid $cloud;
+      b {
+        font-size: 18px;
+      }
+      .el-col-3{
+        text-align: right ;
+      }
+    }
+
+    .product_brief {
+      margin-top: 2px;
+      line-height: 18px;
+    }
+
+    .product_sale {
+      margin-top: 2px;
+      p {
+        line-height: 24px;
+        span {
+          padding: 1px 2px;
+          margin-right: 10px;
+          border: 1px solid $peach;
+        }
+      }
+    }
+
+    .product_parameter {
+      .el-radio.is-bordered {
+        border-radius: 14px;
+        margin: 10px 10px 0 0;
       }
     }
   }
-  .product_parameter{
-    .el-radio-group{
-      padding: 0 15px;
-    }
-    .el-radio.is-bordered {
-      border-radius: 14px;
-      margin: 10px 10px 0 0;
-    }
 
-
-  }
 </style>

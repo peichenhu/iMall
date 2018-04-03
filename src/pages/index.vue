@@ -8,7 +8,7 @@
     <!-- 行内列表组件 -->
     <InlineList :itemData="itemData4" :lineItemCount=4></InlineList>
     <InlineList :itemData="itemData5" :lineItemCount=5></InlineList>
-    <LayoutB></LayoutB>
+    <LayoutB :layoutData="layoutData"></LayoutB>
     <LayoutTrain :trainData="trainData"></LayoutTrain>
   </div>
 </template>
@@ -21,10 +21,35 @@
   import Clover4 from '../components/clover4'
   import Column3 from '../components/column3'
 
+  
+  const DefaultIMg = 'https://git.io/vxPwn';
+  const DefaultHalfIMg = 'https://git.io/vxPVy';
+
+  const layoutDataExample = {
+    image1: {
+      name: 'name',
+      info: 'info',
+      imageUrl: DefaultIMg,
+      imageAlt: 'default.jpg',
+    },
+    image2:  {
+      name: 'name',
+      info: 'info',
+      imageUrl: DefaultHalfIMg,
+      imageAlt: 'default.jpg',
+    },
+    image3:  {
+      name: 'name',
+      info: 'info',
+      imageUrl: DefaultHalfIMg,
+      imageAlt: 'default.jpg',
+    },
+  }
+
   const carouselDataExample = {
     name: 'name',
     info: 'info',
-    imageUrl: '/images/default-half.jpg',
+    imageUrl: DefaultHalfIMg,
     imageAlt: 'default.jpg',
   }
 
@@ -34,13 +59,13 @@
     newPrice: '产品折扣价',
     oldPrice: '产品原价',
     tag: '直降700',
-    imageUrl: '/images/default.jpg',
+    imageUrl: DefaultIMg,
     imageAlt: 'default.jpg'
   }
 
   const itemDataExample = {
     name: 'name',
-    imageUrl: '/images/default.jpg',
+    imageUrl: DefaultIMg,
     imageAlt: 'default.jpg'
   }
   export default {
@@ -48,6 +73,7 @@
     name: 'index',
     data: function () {
       return {
+        layoutData:layoutDataExample,
         carouselData: [
           carouselDataExample, carouselDataExample, carouselDataExample, carouselDataExample
         ],
