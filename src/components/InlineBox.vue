@@ -1,22 +1,22 @@
 <template>
 
-    <el-row class="inline_list">
-      <div v-for="(item, index) of itemData" :key="index" :style="itemStyleWidth">
+    <el-row class="inline_list" v-if="InlineBoxData">
+      <div v-for="(item, index) of InlineBoxData" :key="index" :style="itemStyleWidth">
         <p class="goods_img">
               <img :src="item.imageUrl" :alt="item.imageAlt">
         </p>
-        <p class="goods_title"> {{item.name}} </p>
+        <p class="goods_title"> {{item.title}} </p>
       </div>
     </el-row>
 
 </template>
 <script>
 export default {
-  props: ['itemData','lineItemCount'],
+  props: ['InlineBoxData','InlineBoxCount'],
   computed:{
     itemStyleWidth:function(){
 
-      return {width: (100/this.$props.lineItemCount) + '%'}
+      return {width: (100/this.$props.InlineBoxCount) + '%'}
     }
   }
 }

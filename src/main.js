@@ -7,8 +7,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue'
 // vue-router
 import router from './router'
-
-
+// 模拟数据
+import './mock'
+// 替代element原生swiper,因为原生的有bug
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 // require styles

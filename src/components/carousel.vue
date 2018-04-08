@@ -1,6 +1,6 @@
 <template>
   <!-- 轮播图 -->
-  <swiper :options="swiperOption" class="carousel_swiper">
+  <swiper :options="swiperOption" class="carousel_swiper" v-if="carouselData">
     <swiper-slide v-for="item in carouselData" :key="item.index">
        <router-link to="/product/123">
         <img :src="item.imageUrl" :alt="item.imageAlt">

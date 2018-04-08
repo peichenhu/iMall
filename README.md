@@ -1,30 +1,16 @@
-# shopping
+# WebApp 商城
 
-> A Vue.js project
+> 基于 vue 2.0,vue-router, vue-awesome-swiper,element-ui, mockjs,sass,axios,webpack,
 
-## Build Setup
+## 构建指令
 
 ``` bash
-# install dependencies
+# 安装依赖
 npm install
 
-# serve with hot reload at localhost:8080
+# 本地服务器热加载： localhost:8080
 npm run dev
 
-# build for production with minification
+# 打包构建产品级压缩代码
 npm run build
-```
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-
-2018年4月2日00:50:39
-D:\github\iMall\node_modules\element-ui\packages\radio\src\radio.vue
-line 22 add:
-```
-:style="{backgroundColor: dotcolor}"
-```
-line 71 add:
-```
-dotcolor: String
 ```

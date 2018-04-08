@@ -4,54 +4,27 @@
     <!-- 搜索消息栏组件 -->
     <topBar></topBar>
     <!-- 轮播图组件 -->
-    <carousel :carouselData="carouselData"></carousel>
+    <Carousel :CarouselData="CarouselData"></Carousel>
     <!-- 行内列表组件 -->
-    <InlineList :itemData="itemData4" :lineItemCount=4></InlineList>
-    <InlineList :itemData="itemData5" :lineItemCount=5></InlineList>
-    <LayoutB :layoutData="layoutData"></LayoutB>
-    <LayoutTrain :trainData="trainData"></LayoutTrain>
+    <InlineBox :InlineBoxData="InlineBoxData" :InlineBoxCount=4></InlineBox>
+    <InlineBox :InlineBoxData="InlineBoxData" :InlineBoxCount=5></InlineBox>
+    <!-- B型组件 -->
+    <LayoutB :layoutBData="layoutBData"></LayoutB>
+    <!-- 双列自增布局 -->
+    <LayoutTrain :LayoutTrainData="LayoutTrainData"></LayoutTrain>
   </div>
 </template>
 <script>
+  import Axios from "axios"
   import TopBar from '../components/topBar'
   import Carousel from '../components/carousel'
-  import InlineList from '../components/inlineList'
+  import InlineBox from '../components/InlineBox'
   import LayoutB from '../components/layoutB'
   import LayoutTrain from '../components/layoutTrain'
-  import Clover4 from '../components/clover4'
-  import Column3 from '../components/column3'
 
-  
+
   const DefaultIMg = 'https://git.io/vxPwn';
   const DefaultHalfIMg = 'https://git.io/vxPVy';
-
-  const layoutDataExample = {
-    image1: {
-      name: 'name',
-      info: 'info',
-      imageUrl: DefaultIMg,
-      imageAlt: 'default.jpg',
-    },
-    image2:  {
-      name: 'name',
-      info: 'info',
-      imageUrl: DefaultHalfIMg,
-      imageAlt: 'default.jpg',
-    },
-    image3:  {
-      name: 'name',
-      info: 'info',
-      imageUrl: DefaultHalfIMg,
-      imageAlt: 'default.jpg',
-    },
-  }
-
-  const carouselDataExample = {
-    name: 'name',
-    info: 'info',
-    imageUrl: DefaultHalfIMg,
-    imageAlt: 'default.jpg',
-  }
 
   const trainDataExample = {
     name: '产品名称',
@@ -63,41 +36,90 @@
     imageAlt: 'default.jpg'
   }
 
-  const itemDataExample = {
-    name: 'name',
-    imageUrl: DefaultIMg,
-    imageAlt: 'default.jpg'
-  }
   export default {
 
     name: 'index',
     data: function () {
       return {
-        layoutData:layoutDataExample,
-        carouselData: [
-          carouselDataExample, carouselDataExample, carouselDataExample, carouselDataExample
-        ],
-        trainData: [
-          trainDataExample, trainDataExample, trainDataExample
-        ],
-        itemData4: [
-          itemDataExample, itemDataExample, itemDataExample, itemDataExample,
-          itemDataExample, itemDataExample, itemDataExample, itemDataExample,
-        ],
-        itemData5: [
-          itemDataExample, itemDataExample, itemDataExample, itemDataExample, itemDataExample,
-        ]
+        CarouselData: null,
+        InlineBoxData: null,
+        layoutBData: null,
+        LayoutTrainData:null
       }
     },
     components: {
       TopBar,
       Carousel,
-      InlineList,
+      InlineBox,
       LayoutB,
       LayoutTrain,
-      Clover4,
-      Column3
     },
+
+    created() {
+      this.getIndexCarouselData();
+      this.getIndexInlineBoxData();
+      this.getIndexLayoutBData();
+      this.getIndexLayoutTrainData();
+    },
+
+    methods: {
+        
+      getIndexLayoutTrainData: function () {
+        let index = this;
+        // localhost-mock or 使用在线版easy-mock
+        Axios.get("/getIndexLayoutTrainData", {
+            cookie: "getIndexLayoutTrainData"
+          }) // localhost-mock or 使用在线版easy-mock
+          .then(function (response) {
+            index.LayoutTrainData = response.data.list;
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      getIndexLayoutBData: function () {
+        let index = this;
+        // localhost-mock or 使用在线版easy-mock
+        Axios.get("/getIndexLayoutBData", {
+            cookie: "getIndexLayoutBData"
+          }) // localhost-mock or 使用在线版easy-mock
+          .then(function (response) {
+            index.layoutBData = response.data;
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      getIndexInlineBoxData: function () {
+        let index = this;
+        // localhost-mock or 使用在线版easy-mock
+        Axios.get("/getIndexInlineBoxData", {
+            cookie: "getIndexInlineBoxData"
+          }) // localhost-mock or 使用在线版easy-mock
+          .then(function (response) {
+            index.InlineBoxData = response.data.list;
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      getIndexCarouselData: function () {
+        let index = this;
+        // localhost-mock or 使用在线版easy-mock
+        Axios.get("/getIndexCarouselData", {
+            cookie: "getIndexCarouselData"
+          }) // localhost-mock or 使用在线版easy-mock
+          .then(function (response) {
+            index.CarouselData = response.data.list;
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    }
   }
 
 </script>

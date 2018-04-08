@@ -1,15 +1,15 @@
 <template>
   <!-- 小火车布局 -->
-  <el-row class="train">
+  <el-row class="train" v-if="LayoutTrainData">
 
     <!-- <h5 class="bg_white color_ink">分类标题 <i class="icon-right"></i> </h5> -->
     <ul>
-      <li v-for="(item, index) in trainData" :key="index">
+      <li v-for="(item, index) in LayoutTrainData" :key="index">
         <p>
           <img :src="item.imageUrl" :alt="item.imageAlt">
         </p>
         <p>
-          <span>{{item.name}}</span>
+          <span>{{item.title}}</span>
           <span v-if="item.info!==''">{{item.info}}</span>
           <span>{{item.newPrice}}
             <small>
@@ -26,7 +26,7 @@
 </template>
 <script>
   export default {
-    props: ['trainData']
+    props: ['LayoutTrainData']
 
   }
 

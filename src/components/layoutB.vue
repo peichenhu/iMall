@@ -1,16 +1,17 @@
 <template>
   
     <!-- B型布局 -->
-    <el-row class="layout_b">
+    <el-row class="layout_b" v-if="layoutBData">
+        
       <div class="b_left">
-              <img :src="layoutData.image1.imageUrl" :alt="layoutData.image1.imageAlt">
+              <img :src="layoutBData.image1.imageUrl" :alt="layoutBData.image1.imageAlt">
       </div>
       <ul class="b_right">
         <li>
-              <img :src="layoutData.image2.imageUrl" :alt="layoutData.image2.imageAlt">
+              <img :src="layoutBData.image2.imageUrl" :alt="layoutBData.image2.imageAlt">
         </li>
         <li>
-              <img :src="layoutData.image3.imageUrl" :alt="layoutData.image3.imageAlt">
+              <img :src="layoutBData.image3.imageUrl" :alt="layoutBData.image3.imageAlt">
         </li>
       </ul>
     </el-row>
@@ -18,7 +19,7 @@
 <script>
 export default {
   name:'',
-  props:['layoutData']
+  props:['layoutBData']
   
 }
 </script>

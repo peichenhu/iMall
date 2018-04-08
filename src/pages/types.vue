@@ -3,53 +3,88 @@
 
     <TopBar class="fixed_top"></TopBar>
     <hr>
-    <h3 class="bg_white">分类 1</h3>
-    <InlineList :itemData= itemData  :lineItemCount = 1  ></InlineList>
+    <h3 class="bg_white">手机</h3>
+    <InlineBox :InlineBoxData="TypesPhoneData" :InlineBoxCount=5></InlineBox>
     
-    <h3 class="bg_white">分类 2</h3>
-    <InlineList :itemData= itemData  :lineItemCount = 2  ></InlineList>
-
-    <h3 class="bg_white">分类 3</h3>
-    <InlineList :itemData= itemData  :lineItemCount = 3  ></InlineList>
+    <h3 class="bg_white">耳机</h3>
+    <InlineBox :InlineBoxData="TypesHeadsetData" :InlineBoxCount=5></InlineBox>
     
-    <h3 class="bg_white">分类 4</h3>
-    <InlineList :itemData= itemData  :lineItemCount = 4  ></InlineList>
-
-    <h3 class="bg_white">分类 5</h3>
-    <InlineList :itemData= itemData  :lineItemCount = 5  ></InlineList>
+    <h3 class="bg_white">配件</h3>
+    <InlineBox :InlineBoxData="TypesPartsData" :InlineBoxCount=5></InlineBox>
   </div>
 
 </template>
 
 <script>
+  // 引入插件
+  import Axios from "axios"
   // 引入组件
   import TopBar from '../components/topBar'
-  import InlineList from '../components/inlineList'
-
-  const DefaultIMg = 'https://git.io/vxPwn';
-  const DefaultHalfIMg = 'https://git.io/vxPVy';
-
-  const itemDataExample={
-    name:'name',
-    imageUrl: DefaultIMg,
-    imageAlt:'default.jpg'
-  }
+  import InlineBox from '../components/InlineBox'
 
   export default {
       
     data:function(){
       return{
-        itemData:[
-          itemDataExample,itemDataExample,itemDataExample,itemDataExample,
-          itemDataExample,itemDataExample,
-        ]
+          TypesPhoneData: null,
+          TypesHeadsetData: null,
+          TypesPartsData: null
       }
     },
     // 初始化组件
     components: {
       TopBar,
-      InlineList
+      InlineBox
+    },
+    created(){
+      this.getTypesPhoneData();
+      this.getTypesHeadsetData();
+      this.getTypesPartsData();
+    },
+    methods: {
+      getTypesPhoneData: function () {
+        let types = this;
+        Axios.get("/getTypesPhoneData", {
+            cookie: "getTypesPhoneData"
+          }) // localhost-mock or 使用在线版easy-mock
+          .then(function (response) {
+            types.TypesPhoneData = response.data.list;
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      getTypesHeadsetData: function () {
+        let types = this;
+        Axios.get("/getTypesHeadsetData", {
+            cookie: "getTypesHeadsetData"
+          }) // localhost-mock or 使用在线版easy-mock
+          .then(function (response) {
+            types.TypesHeadsetData = response.data.list;
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
+      getTypesPartsData: function () {
+        let types = this;
+        Axios.get("/getTypesPartsData", {
+            cookie: "getTypesPartsData"
+          }) // localhost-mock or 使用在线版easy-mock
+          .then(function (response) {
+            types.TypesPartsData = response.data.list;
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+
     }
+    
+    
 
   }
 
