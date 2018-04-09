@@ -1,0 +1,48 @@
+{
+    "code": 0,
+    "time": 0,
+    "data": {
+        "IndexCarouselData": [
+            {
+                "id": 1001,
+                "title": "V18预约页面（3.29-4.3）",
+                "description": "",
+                "imageUrl": "https://oss.static.nubia.cn/blockimage/152239351592.jpg",
+                "products_data": {
+                    "spec_id": 938,
+                    "original_price": 1699,
+                    "price": 1499,
+                    "product_link": "nubiaz17minis/black6gb64gb",
+                    "sale_point": {
+                        "sale_point": "",
+                        "block_image_icon": {
+                            "is_need": false,
+                            "text": "",
+                            "color": ""
+                        }
+                    }
+                }
+            },
+            {
+                "id": 1002,
+                "title": "Z17 直降（3.30）",
+                "description": "",
+                "imageUrl": "https://oss.static.nubia.cn/blockimage/152239351592.jpg",
+                "products_data": {
+                    "spec_id": 882,
+                    "original_price": 2499,
+                    "price": 2299,
+                    "product_link": "nubiaZ17/black",
+                    "sale_point": {
+                        "sale_point": "left",
+                        "block_image_icon": {
+                            "is_need": true,
+                            "text": "直降200",
+                            "color": "#e60012"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

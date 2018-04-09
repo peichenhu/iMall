@@ -1,10 +1,15 @@
 <template>
   <!-- 轮播图 -->
-  <swiper :options="swiperOption" class="carousel_swiper" v-if="carouselData">
-    <swiper-slide v-for="item in carouselData" :key="item.index">
-       <router-link to="/product/123">
-        <img :src="item.imageUrl" :alt="item.imageAlt">
-       </router-link>
+  <swiper :options="swiperOption" class="carousel_swiper" v-if="CarouselData">
+
+    <swiper-slide v-for="item in CarouselData" :key="item.index">
+
+      <router-link :to="{ name: 'product', params: { id: item.products_id }}" v-if="item.products_id">
+        <img :src="item.imageUrl" :alt="item.title">
+      </router-link>
+
+      <img :src="item.imageUrl" :alt="item.title" v-else>
+
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
@@ -14,9 +19,10 @@
     swiper,
     swiperSlide
   } from 'vue-awesome-swiper'
+
   export default {
     name: 'carrousel',
-    props: ['carouselData'],
+    props: ['CarouselData'],
     components: {
       swiper,
       swiperSlide

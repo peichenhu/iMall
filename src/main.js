@@ -18,9 +18,11 @@ import 'swiper/dist/css/swiper.css'
 
 Vue.use(ElementUI,VueAwesomeSwiper)
 
-new Vue({
+const god = new Vue({
     el: '#app',
     router,
     render: h => h(App)
 })
 
+// 获取json 中单个产品的数据
+god.$on('say',id => console.log(id))

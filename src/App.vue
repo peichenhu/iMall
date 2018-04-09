@@ -21,7 +21,10 @@
       return {
         msg: 'Welcome to Your Vue.js App'
       }
-    }
+    },
+    created(){
+        this.$parent.$root.$emit('say', this.msg);
+    },
   }
 
 </script>
@@ -29,11 +32,7 @@
 <style lang="scss">
   @import './assets/css/config.scss';
   @import './assets/css/reset.scss';
-
-
   .el-row {
     background-color: white;
   }
-
-
 </style>

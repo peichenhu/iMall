@@ -5,11 +5,11 @@
     <topBar></topBar>
     <!-- 轮播图组件 -->
     <Carousel :CarouselData="CarouselData"></Carousel>
+    <!-- B型组件 -->
+    <LayoutB :layoutBData="layoutBData"></LayoutB>
     <!-- 行内列表组件 -->
     <InlineBox :InlineBoxData="InlineBoxData" :InlineBoxCount=4></InlineBox>
     <InlineBox :InlineBoxData="InlineBoxData" :InlineBoxCount=5></InlineBox>
-    <!-- B型组件 -->
-    <LayoutB :layoutBData="layoutBData"></LayoutB>
     <!-- 双列自增布局 -->
     <LayoutTrain :LayoutTrainData="LayoutTrainData"></LayoutTrain>
   </div>
@@ -21,20 +21,6 @@
   import InlineBox from '../components/InlineBox'
   import LayoutB from '../components/layoutB'
   import LayoutTrain from '../components/layoutTrain'
-
-
-  const DefaultIMg = 'https://git.io/vxPwn';
-  const DefaultHalfIMg = 'https://git.io/vxPVy';
-
-  const trainDataExample = {
-    name: '产品名称',
-    info: '产品介绍',
-    newPrice: '产品折扣价',
-    oldPrice: '产品原价',
-    tag: '直降700',
-    imageUrl: DefaultIMg,
-    imageAlt: 'default.jpg'
-  }
 
   export default {
 
@@ -72,7 +58,6 @@
           }) // localhost-mock or 使用在线版easy-mock
           .then(function (response) {
             index.LayoutTrainData = response.data.list;
-            console.log(response);
           })
           .catch(function (error) {
             console.log(error);
@@ -86,7 +71,6 @@
           }) // localhost-mock or 使用在线版easy-mock
           .then(function (response) {
             index.layoutBData = response.data;
-            console.log(response);
           })
           .catch(function (error) {
             console.log(error);
@@ -100,7 +84,6 @@
           }) // localhost-mock or 使用在线版easy-mock
           .then(function (response) {
             index.InlineBoxData = response.data.list;
-            console.log(response);
           })
           .catch(function (error) {
             console.log(error);
@@ -113,7 +96,7 @@
             cookie: "getIndexCarouselData"
           }) // localhost-mock or 使用在线版easy-mock
           .then(function (response) {
-            index.CarouselData = response.data.list;
+            index.CarouselData = response.data;
           })
           .catch(function (error) {
             console.log(error);

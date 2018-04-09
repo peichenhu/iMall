@@ -20,7 +20,7 @@ const routes = [
     { path: '/types', component: Types },
     { path: '/shoppingcart', component: ShoppingCart },
     { path: '/account', component: Account },
-    { path: '/product/:id/', component: Product }
+    { path: '/product/:id/', name:'product',component: Product }
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置

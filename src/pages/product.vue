@@ -1,5 +1,5 @@
 <template>
-  <div id="product">
+  <div id="product" v-if="products">
 
     <el-row class="backBar">
       <el-col :span="18">
@@ -19,17 +19,16 @@
         </el-button>
       </el-col>
     </el-row>
-
     <!-- 轮播图组件 -->
-    <carousel :carouselData="carouselData"></carousel>
+    <Carousel :CarouselData="CarouselData"></Carousel>
     <!-- 产品简要 -->
     <el-row class="product_brief">
-      <p>标题简要标题简要标题简要标题简</p>
+      <p>{{products.title}} {{product.color}} {{product.storage}}</p>
       <p>
-        <small>信息简要信息简要信息简要信息简要信息简要信息简要</small>
+        <small>{{product.sale}}</small>
       </p>
-      <p class="color_peach">￥1399
-        <del>￥1599</del>
+      <p class="color_peach">{{product.price+"元"}}
+        <del>{{product.original_price+"元"}}</del>
       </p>
     </el-row>
     <!-- 促销信息 -->
@@ -43,26 +42,25 @@
     <!-- 产品参数 颜色 -->
     <el-row class="product_parameter">
       <h3>颜色</h3>
-      <el-radio-group v-model="radio1" size="mini">
-        <el-radio border label="1" dotcolor="#555">墨色</el-radio>
-        <el-radio border label="2">桃色</el-radio>
-        <el-radio border label="3">雪色</el-radio>
-        <el-radio border label="4">云色</el-radio>
+      <el-radio-group v-model="radioColor.choose" size="mini">
+        <!-- 循环输出所有颜色 -->
+        <el-radio border  v-for="(item,index) in color" :key="index" :label="index">
+            {{item}}
+        </el-radio>
       </el-radio-group>
     </el-row>
     <!-- 产品参数 规格 -->
     <el-row class="product_parameter">
       <h3>规格</h3>
-      <el-radio-group v-model="radio2" size="mini">
-        <el-radio border label="1" dotcolor="#555">4G+64G</el-radio>
-        <el-radio border label="2">4G+128G</el-radio>
-        <el-radio border label="3">6G+64G</el-radio>
-        <el-radio border label="4">4G+128G</el-radio>
+      <el-radio-group v-model="radioParams.choose" size="mini">
+        <el-radio border v-for="(item, index) in storage" :key="index" :label="index">
+            {{item}}
+        </el-radio>
       </el-radio-group>
 
     </el-row>
     <!-- 产品参数 套装 -->
-    <el-row class="product_suit">
+    <!-- <el-row class="product_suit">
       <h3>套装</h3>
       <el-collapse accordion>
         <el-collapse-item>
@@ -124,16 +122,12 @@
           </div>
         </el-collapse-item>
       </el-collapse>
-    </el-row>
-    <el-row>
+    </el-row> -->
+    <el-row class="product_poster">
       <h3>概述</h3>
       <div>
-        <img :src="DefaultIMg" alt="">
-        <img :src="DefaultIMg" alt="">
-        <img :src="DefaultIMg" alt="">
-        <img :src="DefaultIMg" alt="">
+        <img v-for="(item, index) in product.poster" :key="index" :src="item" alt="Poster">
       </div>
-      
     </el-row>
 
   </div>
@@ -141,34 +135,62 @@
 </template>
 <script>
   import Carousel from '../components/carousel'
+  import Axios from 'axios'
 
   const DefaultIMg = 'https://git.io/vxPwn';
   const DefaultHalfIMg = 'https://git.io/vxPVy';
 
-  const carouselDataExample = {
-    name: 'name',
-    info: 'info',
-    imageUrl: DefaultHalfIMg,
-    imageAlt: 'default.jpg',
-  }
   export default {
 
     name: 'index',
+    components: {
+      Carousel,
+    },
     data: function () {
       return {
-        DefaultIMg,
-        carouselData: [
-          carouselDataExample, carouselDataExample, carouselDataExample, carouselDataExample
-        ],
-        radio1: '1',
-        radio2: '1',
+        CarouselData:null,
+        products:null,
+        product:null,
+        color:[],
+        storage:[],
+        radioColor: {},
+        radioParams: {},
         radio3: '1'
       }
     },
+    created(){
+        this.getProductById(this.$route.params.id);
+        this.$set(this.radioColor, 'choose', 0);
+        this.$set(this.radioParams, 'choose', 0);
+    },
+    methods:{
+        getProductById:function(id){
+            let self = this;
+            let tmp=new Set();
+            let tmp2=new Set();
+            Axios.get("/getProduct",{}) 
+            .then(response=>{
+                // 先存储完整数据
+                self.products = response.data;
+                // 再拿出第一条数据作为默认
+                self.product = response.data.product_specifications[0];
+                // 拿出第一条的焦点图
+                self.CarouselData = self.product.product_images;
+                // 拿出所得颜色(数组去重)
+                response.data.product_specifications.forEach(item=>{
+                    tmp.add(item.color);
+                    tmp2.add(item.storage)
+                })
+                // 同上,拿出所有存储格式
+                self.storage = Array.from(tmp2);
+                self.color = Array.from(tmp);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
 
-    components: {
-      Carousel,
-    }
+        }
+    },
   }
 
 </script>
@@ -240,6 +262,12 @@
         border-radius: 14px;
         margin: 10px 10px 0 0;
       }
+    }
+    .product_poster{
+        padding: 0;
+        h3{
+            padding: 10px
+        }
     }
   }
 
