@@ -126,7 +126,7 @@
     <el-row class="product_poster">
       <h3>概述</h3>
       <div>
-        <img v-for="(item, index) in product.poster" :key="index" :src="item" alt="Poster">
+        <img v-for="(item, index) in products.products_poster" :key="index" :src="item" alt="Poster">
       </div>
     </el-row>
 
@@ -173,15 +173,15 @@
                 // 先存储完整数据
                 self.products = response.data;
                 // 再拿出第一条数据作为默认
-                self.product = response.data.product_specifications[0];
+                self.product = response.data.products_specifications[0];
                 // 拿出第一条的焦点图
                 self.CarouselData = self.product.product_images;
                 // 拿出所得颜色(数组去重)
-                response.data.product_specifications.forEach(item=>{
+                response.data.products_specifications.forEach(item=>{
                     tmp.add(item.color);
                     tmp2.add(item.storage)
                 })
-                // 同上,拿出所有存储格式
+                // 同上,拿出所有存储格式(数组去重)
                 self.storage = Array.from(tmp2);
                 self.color = Array.from(tmp);
             })

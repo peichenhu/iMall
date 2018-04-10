@@ -4,13 +4,7 @@
     <TopBar class="fixed_top"></TopBar>
     <hr>
     <h3 class="bg_white">手机</h3>
-    <InlineBox :InlineBoxData="TypesPhoneData" :InlineBoxCount=5></InlineBox>
-    
-    <h3 class="bg_white">耳机</h3>
-    <InlineBox :InlineBoxData="TypesHeadsetData" :InlineBoxCount=5></InlineBox>
-    
-    <h3 class="bg_white">配件</h3>
-    <InlineBox :InlineBoxData="TypesPartsData" :InlineBoxCount=5></InlineBox>
+    <InlineBox :InlineBoxData="TypesPhoneData" :InlineBoxCount=4></InlineBox>
   </div>
 
 </template>
@@ -26,9 +20,7 @@
       
     data:function(){
       return{
-          TypesPhoneData: null,
-          TypesHeadsetData: null,
-          TypesPartsData: null
+          TypesPhoneData: null
       }
     },
     // 初始化组件
@@ -38,8 +30,6 @@
     },
     created(){
       this.getTypesPhoneData();
-      this.getTypesHeadsetData();
-      this.getTypesPartsData();
     },
     methods: {
       getTypesPhoneData: function () {
@@ -48,40 +38,13 @@
             cookie: "getTypesPhoneData"
           }) // localhost-mock or 使用在线版easy-mock
           .then(function (response) {
-            types.TypesPhoneData = response.data.list;
+            types.TypesPhoneData = response.data;
             console.log(response);
           })
           .catch(function (error) {
             console.log(error);
           });
       },
-      getTypesHeadsetData: function () {
-        let types = this;
-        Axios.get("/getTypesHeadsetData", {
-            cookie: "getTypesHeadsetData"
-          }) // localhost-mock or 使用在线版easy-mock
-          .then(function (response) {
-            types.TypesHeadsetData = response.data.list;
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      },
-      getTypesPartsData: function () {
-        let types = this;
-        Axios.get("/getTypesPartsData", {
-            cookie: "getTypesPartsData"
-          }) // localhost-mock or 使用在线版easy-mock
-          .then(function (response) {
-            types.TypesPartsData = response.data.list;
-            console.log(response);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-      }
-
     }
     
     

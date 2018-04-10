@@ -2,51 +2,17 @@ import Mock from "mockjs"
 // Mock.Random 是一个工具类，用于生成各种随机数据。
 const Random = Mock.Random;
 
-const indexData = {
-  "IndexCarouselData": [{
-      "id": '1001',
-      "title": "V18预约页面（3.29-4.3）",
-      "description": "",
-      "imageUrl": "https://oss.static.nubia.cn/blockimage/152272322740.jpg",
-      "products_id": '938'
-    },
-    {
-      "id": '1002',
-      "title": "Z17 直降（3.30）",
-      "description": "",
-      "imageUrl": "https://oss.static.nubia.cn/blockimage/152239351592.jpg",
-      "products_id": '882'
-    }
-  ],
-}
+
 // v18-1
 const product_v18_1 = {
   "id": 8881,
+  "title": "Nubia V18 全面屏",
   "model": "v18",
   "color": "曜石黑",
   "storage": "4GB+64GB",
   "price": 2299,
   "original_price": 2499,
   "sale": "6寸长续航,千元全面屏",
-  "poster":[
-      'https://oss.static.nubia.cn/upload/592fb37cad79f46.jpg',
-      'https://oss.static.nubia.cn/upload/5a2e4d796ca6379.jpeg',
-      'https://oss.static.nubia.cn/upload/592fb37ea04a845.jpg',
-      'https://oss.static.nubia.cn/upload/592fb37f7804752.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3803cb9d38.jpg',
-      'https://oss.static.nubia.cn/upload/592fb380d458a92.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3819ca5c44.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38276aa432.jpg',
-      'https://oss.static.nubia.cn/upload/592fe090cfa8b47.jpg',
-      'https://oss.static.nubia.cn/upload/5a2e445562c9035.jpg',
-      'https://oss.static.nubia.cn/upload/59310fb7095b699.jpg',
-      'https://oss.static.nubia.cn/upload/59561e146efe593.jpg',
-      'https://oss.static.nubia.cn/upload/592fe0ca129f546.jpg',
-      'https://oss.static.nubia.cn/upload/592fe0d214d7d49.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3897ee7424.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38a4fe7c26.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38ae2d141.jpg',
-  ],
   "product_images": [{
       "id": '88810',
       "title": "V18 曜石黑",
@@ -66,43 +32,23 @@ const product_v18_1 = {
       "imageUrl": "https://oss.static.nubia.cn/pic/149631325050.jpg",
     }
   ],
-  "sale_point": {
-    "sale_point": "left",
-    "block_image_icon": {
-      "is_need": true,
-      "text": "直降200",
-      "color": "#e60012"
-    }
+  "sale_tag": {
+    "is_need": true,
+    "position": "left",
+    "text": "优惠200",
+    "color": "#e60012"
   }
 }
 // v18-2
 const product_v18_2 = {
   "id": 8882,
+  "title": "Nubia V18 全面屏",
   "model": "v18",
   "color": "极光蓝",
   "storage": "4GB+64GB",
   "price": 2299,
   "original_price": 2499,
   "sale": "6寸长续航,千元全面屏",
-  "poster":[
-      'https://oss.static.nubia.cn/upload/592fb37cad79f46.jpg',
-      'https://oss.static.nubia.cn/upload/5a2e4d796ca6379.jpeg',
-      'https://oss.static.nubia.cn/upload/592fb37ea04a845.jpg',
-      'https://oss.static.nubia.cn/upload/592fb37f7804752.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3803cb9d38.jpg',
-      'https://oss.static.nubia.cn/upload/592fb380d458a92.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3819ca5c44.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38276aa432.jpg',
-      'https://oss.static.nubia.cn/upload/592fe090cfa8b47.jpg',
-      'https://oss.static.nubia.cn/upload/5a2e445562c9035.jpg',
-      'https://oss.static.nubia.cn/upload/59310fb7095b699.jpg',
-      'https://oss.static.nubia.cn/upload/59561e146efe593.jpg',
-      'https://oss.static.nubia.cn/upload/592fe0ca129f546.jpg',
-      'https://oss.static.nubia.cn/upload/592fe0d214d7d49.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3897ee7424.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38a4fe7c26.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38ae2d141.jpg',
-  ],
   "product_images": [{
       "id": '88820',
       "title": "V18 极光蓝",
@@ -116,43 +62,23 @@ const product_v18_2 = {
       "imageUrl": "https://oss.static.nubia.cn/pic/152152380182.jpg",
     }
   ],
-  "sale_point": {
-    "sale_point": "left",
-    "block_image_icon": {
-      "is_need": true,
-      "text": "直降200",
-      "color": "#e60012"
-    }
+  "sale_tag": {
+    "is_need": true,
+    "position": "left",
+    "text": "热销",
+    "color": "#e60012"
   }
 }
 // v18-3
 const product_v18_3 = {
   "id": 8883,
+  "title": "Nubia V18 全面屏",
   "model": "v18",
   "color": "极光蓝",
   "storage": "6GB+64GB",
   "price": 2499,
   "original_price": 2899,
   "sale": "6寸长续航,千元全面屏",
-  "poster":[
-      'https://oss.static.nubia.cn/upload/592fb37cad79f46.jpg',
-      'https://oss.static.nubia.cn/upload/5a2e4d796ca6379.jpeg',
-      'https://oss.static.nubia.cn/upload/592fb37ea04a845.jpg',
-      'https://oss.static.nubia.cn/upload/592fb37f7804752.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3803cb9d38.jpg',
-      'https://oss.static.nubia.cn/upload/592fb380d458a92.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3819ca5c44.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38276aa432.jpg',
-      'https://oss.static.nubia.cn/upload/592fe090cfa8b47.jpg',
-      'https://oss.static.nubia.cn/upload/5a2e445562c9035.jpg',
-      'https://oss.static.nubia.cn/upload/59310fb7095b699.jpg',
-      'https://oss.static.nubia.cn/upload/59561e146efe593.jpg',
-      'https://oss.static.nubia.cn/upload/592fe0ca129f546.jpg',
-      'https://oss.static.nubia.cn/upload/592fe0d214d7d49.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3897ee7424.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38a4fe7c26.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38ae2d141.jpg',
-  ],
   "product_images": [{
       "id": '88830',
       "title": "V18 极光蓝",
@@ -166,24 +92,42 @@ const product_v18_3 = {
       "imageUrl": "https://oss.static.nubia.cn/pic/152152380182.jpg",
     }
   ],
-  "sale_point": {
-    "sale_point": "left",
-    "block_image_icon": {
-      "is_need": true,
-      "text": "优惠400",
-      "color": "#e60012"
-    }
+  "sale_tag": {
+    "is_need": true,
+    "position": "left",
+    "text": "新品",
+    "color": "#e60012"
   }
 }
-const products_v18 ={
-    "id": '888',
-    "title": "V18千元长续航",
-    "product_type": "phone",
-    "product_specifications": [
-      product_v18_1,
-      product_v18_2,
-      product_v18_3
-    ]
+const products_v18 = {
+  "id": '888',
+  "title": "V18 长续航",
+  "products_type": "phone",
+  "products_image": "https://oss.static.nubia.cn/pic/15215238003.jpg",
+  "products_specifications": [
+    product_v18_1,
+    product_v18_2,
+    product_v18_3
+  ],
+  "products_poster": [
+    'https://oss.static.nubia.cn/upload/592fb37cad79f46.jpg',
+    'https://oss.static.nubia.cn/upload/5a2e4d796ca6379.jpeg',
+    'https://oss.static.nubia.cn/upload/592fb37ea04a845.jpg',
+    'https://oss.static.nubia.cn/upload/592fb37f7804752.jpg',
+    'https://oss.static.nubia.cn/upload/592fb3803cb9d38.jpg',
+    'https://oss.static.nubia.cn/upload/592fb380d458a92.jpg',
+    'https://oss.static.nubia.cn/upload/592fb3819ca5c44.jpg',
+    'https://oss.static.nubia.cn/upload/592fb38276aa432.jpg',
+    'https://oss.static.nubia.cn/upload/592fe090cfa8b47.jpg',
+    'https://oss.static.nubia.cn/upload/5a2e445562c9035.jpg',
+    'https://oss.static.nubia.cn/upload/59310fb7095b699.jpg',
+    'https://oss.static.nubia.cn/upload/59561e146efe593.jpg',
+    'https://oss.static.nubia.cn/upload/592fe0ca129f546.jpg',
+    'https://oss.static.nubia.cn/upload/592fe0d214d7d49.jpg',
+    'https://oss.static.nubia.cn/upload/592fb3897ee7424.jpg',
+    'https://oss.static.nubia.cn/upload/592fb38a4fe7c26.jpg',
+    'https://oss.static.nubia.cn/upload/592fb38ae2d141.jpg',
+  ],
 }
 // Z17-1
 const product_z17_1 = {
@@ -191,28 +135,9 @@ const product_z17_1 = {
   "model": "z17",
   "color": "星月白",
   "storage": "4GB+64GB",
-  "price": 1699,
+  "price": 1299,
   "original_price": 1899,
   "sale": "6寸长续航,千元全面屏",
-  "poster":[
-      'https://oss.static.nubia.cn/upload/592fb37cad79f46.jpg',
-      'https://oss.static.nubia.cn/upload/5a2e4d796ca6379.jpeg',
-      'https://oss.static.nubia.cn/upload/592fb37ea04a845.jpg',
-      'https://oss.static.nubia.cn/upload/592fb37f7804752.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3803cb9d38.jpg',
-      'https://oss.static.nubia.cn/upload/592fb380d458a92.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3819ca5c44.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38276aa432.jpg',
-      'https://oss.static.nubia.cn/upload/592fe090cfa8b47.jpg',
-      'https://oss.static.nubia.cn/upload/5a2e445562c9035.jpg',
-      'https://oss.static.nubia.cn/upload/59310fb7095b699.jpg',
-      'https://oss.static.nubia.cn/upload/59561e146efe593.jpg',
-      'https://oss.static.nubia.cn/upload/592fe0ca129f546.jpg',
-      'https://oss.static.nubia.cn/upload/592fe0d214d7d49.jpg',
-      'https://oss.static.nubia.cn/upload/592fb3897ee7424.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38a4fe7c26.jpg',
-      'https://oss.static.nubia.cn/upload/592fb38ae2d141.jpg',
-  ],
   "product_images": [{
       "id": '66610',
       "title": "Z17 星月白",
@@ -226,21 +151,102 @@ const product_z17_1 = {
       "imageUrl": "https://oss.static.nubia.cn/pic/152152380182.jpg",
     }
   ],
-  "sale_point": {
-    "sale_point": "left",
-    "block_image_icon": {
-      "is_need": true,
-      "text": "新品",
-      "color": "#e60012"
-    }
+  "sale_tag": {
+    "is_need": true,
+    "position": "left",
+    "text": "优惠600",
+    "color": "#e60012"
   }
 }
 const products_z17 = {
-    "id": '666',
-    "title": "Z17无边框旗舰",
-    "product_type": "phone",
-    "product_specifications": [product_z17_1]
+  "id": '666',
+  "title": "Z17 无边框",
+  "products_type": "phone",
+  "products_image": "https://oss.static.nubia.cn/pic/150777823783.jpg",
+  "products_specifications": [product_z17_1],
+  "products_poster": [
+    'https://oss.static.nubia.cn/upload/592fb37cad79f46.jpg',
+    'https://oss.static.nubia.cn/upload/5a2e4d796ca6379.jpeg',
+    'https://oss.static.nubia.cn/upload/592fb37ea04a845.jpg',
+    'https://oss.static.nubia.cn/upload/592fb37f7804752.jpg',
+    'https://oss.static.nubia.cn/upload/592fb3803cb9d38.jpg',
+    'https://oss.static.nubia.cn/upload/592fb380d458a92.jpg',
+    'https://oss.static.nubia.cn/upload/592fb3819ca5c44.jpg',
+    'https://oss.static.nubia.cn/upload/592fb38276aa432.jpg',
+    'https://oss.static.nubia.cn/upload/592fe090cfa8b47.jpg',
+    'https://oss.static.nubia.cn/upload/5a2e445562c9035.jpg',
+    'https://oss.static.nubia.cn/upload/59310fb7095b699.jpg',
+    'https://oss.static.nubia.cn/upload/59561e146efe593.jpg',
+    'https://oss.static.nubia.cn/upload/592fe0ca129f546.jpg',
+    'https://oss.static.nubia.cn/upload/592fe0d214d7d49.jpg',
+    'https://oss.static.nubia.cn/upload/592fb3897ee7424.jpg',
+    'https://oss.static.nubia.cn/upload/592fb38a4fe7c26.jpg',
+    'https://oss.static.nubia.cn/upload/592fb38ae2d141.jpg',
+  ],
+}
+
+const indexData = {
+  "carousel": [{
+      "id": '1001',
+      "title": "V18预约页面（3.29-4.3）",
+      "description": "",
+      "imageUrl": "https://oss.static.nubia.cn/blockimage/152272322740.jpg",
+      "products_id": '938'
+    },
+    {
+      "id": '1002',
+      "title": "Z17 直降（3.30）",
+      "description": "",
+      "imageUrl": "https://oss.static.nubia.cn/blockimage/152239351592.jpg",
+      "products_id": '882'
+    }
+  ],
+  "layoutB": {
+    'left_max': {
+      "id": 1013,
+      "title": "V18 预约",
+      "description": "",
+      "image_url": "https://oss.static.nubia.cn/blockimage/15216858609.jpg",
+      "products_id": '882'
+    },
+    'right_top_mini': {
+      "id": 1014,
+      "title": "Z17 (3.22)",
+      "description": "",
+      "image_url": "https://oss.static.nubia.cn/blockimage/152168594748.jpg",
+      "products_id": '882'
+    },
+    'right_bottom_mini': {
+      "id": 1035,
+      "title": "Z17miniS",
+      "description": "",
+      "image_url": "https://oss.static.nubia.cn/blockimage/152272474858.jpg",
+      "products_id": '882'
+    }
+  },
+  "layoutTrain": {
+    "title": "热销机型",
+    "recommend": {
+      "id": 1013,
+      "title": "Nubia Z17S",
+      "description": "全面屏 无边框",
+      "image_url": "https://oss.static.nubia.cn/blockimage/150779856642.jpg",
+      "products_id": '882'
+    },
+    "products_list": [
+      product_v18_1,
+      product_v18_2,
+      product_v18_3,
+      product_z17_1,
+    ],
   }
+
+}
+const typesData ={
+    products_v18,
+    products_z17
+}
+
 
 const IndexCarouselData = function (params) {
   let tmp = {
@@ -358,15 +364,21 @@ const TypesPhoneData = function (params) {
 
 //当post或get请求到/api 路由时Mock会拦截请求并返回上面的数据
 // index
-Mock.mock('/getIndexCarouselData', /get/i, indexData.IndexCarouselData);
+Mock.mock('/getIndexCarouselData', /get/i, indexData.carousel);
+// Mock.mock('/getIndexCarouselData', /get/i, IndexCarouselData);
+
+Mock.mock('/getIndexLayoutBData', /get/i, indexData.layoutB);
+// Mock.mock('/getIndexLayoutBData', /get/i, IndexLayoutBData);
 
 Mock.mock('/getIndexInlineBoxData', /get/i, IndexInlineBoxData);
-Mock.mock('/getIndexLayoutBData', /get/i, IndexLayoutBData);
-Mock.mock('/getIndexLayoutTrainData', /get/i, IndexLayoutTrainData);
+// Mock.mock('/getIndexInlineBoxData', /get/i, IndexInlineBoxData);
+
+// Mock.mock('/getIndexLayoutTrainData', /get/i, IndexLayoutTrainData);
+Mock.mock('/getIndexLayoutTrainData', /get/i, indexData.layoutTrain);
+
 // types
-Mock.mock('/getTypesPhoneData', /get/i, TypesPhoneData);
-Mock.mock('/getTypesHeadsetData', /get/i, TypesPhoneData);
-Mock.mock('/getTypesPartsData', /get/i, TypesPhoneData);
+Mock.mock('/getTypesPhoneData', /get/i, typesData);
+// Mock.mock('/getTypesPhoneData', /get/i, TypesPhoneData);
 
 // product
 

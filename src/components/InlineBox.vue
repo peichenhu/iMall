@@ -3,7 +3,7 @@
     <el-row class="inline_list" v-if="InlineBoxData">
       <div v-for="(item, index) of InlineBoxData" :key="index" :style="itemStyleWidth">
         <p class="goods_img">
-              <img :src="item.imageUrl" :alt="item.imageAlt">
+            <img :src="item.products_image" :alt="item.title">
         </p>
         <p class="goods_title"> {{item.title}} </p>
       </div>
@@ -15,7 +15,6 @@ export default {
   props: ['InlineBoxData','InlineBoxCount'],
   computed:{
     itemStyleWidth:function(){
-
       return {width: (100/this.$props.InlineBoxCount) + '%'}
     }
   }
@@ -40,6 +39,7 @@ export default {
       .goods_title {
         line-height: 30px;
         padding: 0 5px;
+        font-size: 11px;
       }
     }
   }

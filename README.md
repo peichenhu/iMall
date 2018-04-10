@@ -16,9 +16,14 @@ npm run build
 ```
 
 ## 重点难点
+
 ### element-ui swiper
+
 在使用element-ui 走马灯组件中遇到动态生成组建内容高度为0现象,一番尝试和谷歌之后发现该问题是一个普遍现象,最后使用vue-awesome-swiper插件替代element-ui走马灯组件.
-### element-ui radio-group组件在动态生成后,默认选中样式失效.经思否社区和vue官方文档查询得知,created 执行时,页面的实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。只是挂载阶段还没开始，$el 属性目前不可见。也就是radio 的 checked 属性已经被生成. radio-group 生成后需要手动的去(使用 Vue.set( target, key, value ))设置对象的属性。如果对象是响应式的，确保属性被创建后也是响应式的，同时触发视图更新。这个方法主要用于避开 Vue 不能检测属性被添加的限制。
+
+### element-ui radio-group
+
+radio-group 组件在动态生成后,默认选中样式失效.经思否社区和vue官方文档查询得知,created 执行时,页面的实例已完成以下的配置：数据观测 (data observer)，属性和方法的运算，watch/event 事件回调。只是挂载阶段还没开始，$el 属性目前不可见。也就是radio 的 checked 属性已经被生成. radio-group 生成后需要手动的去(使用 Vue.set( target, key, value ))设置对象的属性。如果对象是响应式的，确保属性被创建后也是响应式的，同时触发视图更新。这个方法主要用于避开 Vue 不能检测属性被添加的限制。
 
 ```html
 

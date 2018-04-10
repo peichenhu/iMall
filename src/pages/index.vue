@@ -8,8 +8,8 @@
     <!-- B型组件 -->
     <LayoutB :layoutBData="layoutBData"></LayoutB>
     <!-- 行内列表组件 -->
-    <InlineBox :InlineBoxData="InlineBoxData" :InlineBoxCount=4></InlineBox>
-    <InlineBox :InlineBoxData="InlineBoxData" :InlineBoxCount=5></InlineBox>
+    <!-- <InlineBox :InlineBoxData="InlineBoxData" :InlineBoxCount=4></InlineBox> -->
+    <!-- <InlineBox :InlineBoxData="InlineBoxData" :InlineBoxCount=5></InlineBox> -->
     <!-- 双列自增布局 -->
     <LayoutTrain :LayoutTrainData="LayoutTrainData"></LayoutTrain>
   </div>
@@ -57,7 +57,7 @@
             cookie: "getIndexLayoutTrainData"
           }) // localhost-mock or 使用在线版easy-mock
           .then(function (response) {
-            index.LayoutTrainData = response.data.list;
+            index.LayoutTrainData = response.data;
           })
           .catch(function (error) {
             console.log(error);
