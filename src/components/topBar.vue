@@ -1,7 +1,7 @@
 <template>
   
     <!-- 搜索消息栏 -->
-    <el-row class="index_top_bar">
+    <el-row class="index_top_bar fixed_top">
       <!--搜索-->
       <div class="top_search">
         <el-input size="mini" placeholder="请输入内容" prefix-icon="el-icon-search">

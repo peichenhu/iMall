@@ -4,12 +4,16 @@
 
     <h3 class="bg_white color_ink">{{LayoutTrainData.title}} </h3>
     <div class="recommend">
+      <router-link :to="{ name: 'product', params: { id: LayoutTrainData.recommend.id }}">
         <img :src="LayoutTrainData.recommend.image_url" :alt="LayoutTrainData.recommend.title">
+      </router-link>
     </div>
     <ul>
       <li v-for="(item, index) in LayoutTrainData.products_list" :key="index">
+      <router-link :to="{ name: 'product', params: { id: item.id }}">
+
         <p>
-          <img :src="item.product_images[0].imageUrl" :alt="item.title">
+          <img :src="item.product_images[0].image_url" :alt="item.title">
         </p>
         <p>
           <span>{{item.title}}</span>
@@ -23,6 +27,7 @@
         <div class="float_tag" v-if="item.sale_tag.is_need">
           <span>{{item.sale_tag.text}}</span>
         </div>
+      </router-link>
       </li>
     </ul>
     <div class="more">
@@ -60,7 +65,7 @@
         &:nth-child(even) {
           margin-left: 1px;
         }
-        >p {
+        p {
           text-align: left;
           >span {
             display: block;

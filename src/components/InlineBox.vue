@@ -2,10 +2,13 @@
 
     <el-row class="inline_list" v-if="InlineBoxData">
       <div v-for="(item, index) of InlineBoxData" :key="index" :style="itemStyleWidth">
+
+      <router-link :to="{ name: 'product', params: { id: item.products_specifications[0].id }}">
         <p class="goods_img">
             <img :src="item.products_image" :alt="item.title">
         </p>
         <p class="goods_title"> {{item.title}} </p>
+      </router-link>
       </div>
     </el-row>
 

@@ -47,3 +47,6 @@ created(){
     this.$set(this.radioParams, 'choose', 0);
 },
 ```
+
+## element-ui `el-row` `el-col`
+`<el-row v-on:click="fn">` 会失败，需要改成 `@click.native="fn"` 或者 改回div即可

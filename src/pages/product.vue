@@ -1,12 +1,14 @@
 <template>
   <div id="product" v-if="products">
-
+    <!-- 返回状态栏 -->
     <el-row class="backBar">
-      <el-col :span="18">
-        <i class="iconfont icon-left"></i>
+      <el-col :span="18" @click.native="goback">
+
+        <i class="iconfont icon-left" :span="18"></i>
         <span>
           <b>产品名称</b>
         </span>
+
       </el-col>
       <el-col :span="3">
         <el-button circle size="mini" :style="{padding:'5px'}">
@@ -18,6 +20,19 @@
           <i class="iconfont icon-msg"></i>
         </el-button>
       </el-col>
+    </el-row>
+    <!-- 底部状态栏 -->
+    <el-row class="bottom_bar">
+      <el-col :span="4">
+        <i class="iconfont icon-biaoxing" @click="collection"></i>
+      </el-col>
+      <el-col :span="10">
+        <el-button round size="mini">加入购物车</el-button>
+      </el-col>
+      <el-col :span="10">
+        <el-button type="danger" round size="mini">立即购买</el-button>
+      </el-col>
+
     </el-row>
     <!-- 轮播图组件 -->
     <Carousel :CarouselData="CarouselData"></Carousel>
@@ -42,19 +57,19 @@
     <!-- 产品参数 颜色 -->
     <el-row class="product_parameter">
       <h3>颜色</h3>
-      <el-radio-group v-model="radioColor.choose" size="mini">
+      <el-radio-group v-model="radioColor.choose" size="mini" @change="selectColor">
         <!-- 循环输出所有颜色 -->
-        <el-radio border  v-for="(item,index) in color" :key="index" :label="index">
-            {{item}}
+        <el-radio border v-for="(item,index) in color" :key="index" :label="index">
+          {{item}}
         </el-radio>
       </el-radio-group>
     </el-row>
     <!-- 产品参数 规格 -->
     <el-row class="product_parameter">
       <h3>规格</h3>
-      <el-radio-group v-model="radioParams.choose" size="mini">
+      <el-radio-group v-model="radioStorage.choose" size="mini" @change="selectStorage">
         <el-radio border v-for="(item, index) in storage" :key="index" :label="index">
-            {{item}}
+          {{item}}
         </el-radio>
       </el-radio-group>
 
@@ -134,11 +149,10 @@
 
 </template>
 <script>
+  import {
+    getProductById
+  } from "../api/product"
   import Carousel from '../components/carousel'
-  import Axios from 'axios'
-
-  const DefaultIMg = 'https://git.io/vxPwn';
-  const DefaultHalfIMg = 'https://git.io/vxPVy';
 
   export default {
 
@@ -148,48 +162,108 @@
     },
     data: function () {
       return {
-        CarouselData:null,
-        products:null,
-        product:null,
-        color:[],
-        storage:[],
-        radioColor: {},
-        radioParams: {},
-        radio3: '1'
+        CarouselData: null, // 某个产品焦点图
+        products: null, // 该型号产品的类型属性和产品列表
+        product_list: [], // 筛选后的同型号产品列表
+        product: null, // 某个产品
+        color: [], // 去重后的产品颜色表
+        storage: [], // 去重后的产品存储表
+        radioColor: {}, // 颜色单选按钮模型
+        radioStorage: {}, // 存储单选按钮模型
+        radioSuit: {} // 套装单选按钮模型（未开启）
       }
     },
-    created(){
-        this.getProductById(this.$route.params.id);
-        this.$set(this.radioColor, 'choose', 0);
-        this.$set(this.radioParams, 'choose', 0);
-    },
-    methods:{
-        getProductById:function(id){
-            let self = this;
-            let tmp=new Set();
-            let tmp2=new Set();
-            Axios.get("/getProduct",{}) 
-            .then(response=>{
-                // 先存储完整数据
-                self.products = response.data;
-                // 再拿出第一条数据作为默认
-                self.product = response.data.products_specifications[0];
-                // 拿出第一条的焦点图
-                self.CarouselData = self.product.product_images;
-                // 拿出所得颜色(数组去重)
-                response.data.products_specifications.forEach(item=>{
-                    tmp.add(item.color);
-                    tmp2.add(item.storage)
-                })
-                // 同上,拿出所有存储格式(数组去重)
-                self.storage = Array.from(tmp2);
-                self.color = Array.from(tmp);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    created() {
+      let _this = this;
+      let params = {
+        'product_id': this.$route.params.id
+      };
 
-        }
+        let self = this;
+        let tmp = new Set();
+        let tmp2 = new Set();
+      getProductById(params)
+        .then(function (response) {
+          // 先存储完整数据
+            self.products = response.data;
+            // 再拿出第一条数据作为默认
+            self.product = response.data.products_specifications[0];
+            // 拿出第一条的焦点图
+            self.CarouselData = self.product.product_images;
+            // 拿出所得颜色(数组去重)
+            response.data.products_specifications.forEach(item => {
+              tmp.add(item.color);
+              tmp2.add(item.storage)
+            })
+            // 同上,拿出所有存储格式(数组去重)
+            self.storage = Array.from(tmp2);
+            self.color = Array.from(tmp);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    watch: {
+
+    },
+    methods: {
+      goback: function () {
+        window.history.go(-1)
+      },
+
+      getProductById: function (id) {
+        let self = this;
+        let tmp = new Set();
+        let tmp2 = new Set();
+        Axios.get("/getProduct", {})
+          .then(response => {
+            // 先存储完整数据
+            self.products = response.data;
+            // 再拿出第一条数据作为默认
+            self.product = response.data.products_specifications[0];
+            // 拿出第一条的焦点图
+            self.CarouselData = self.product.product_images;
+            // 拿出所得颜色(数组去重)
+            response.data.products_specifications.forEach(item => {
+              tmp.add(item.color);
+              tmp2.add(item.storage)
+            })
+            // 同上,拿出所有存储格式(数组去重)
+            self.storage = Array.from(tmp2);
+            self.color = Array.from(tmp);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+      },
+      selectColor: function (value) {
+        // console.log('改变之后的值是:' + this.color[value])
+        // 根据 value 获取 符合条件的 product
+        let vm = this;
+        var tmp = new Set();
+        this.products.products_specifications.forEach(function (item) {
+          if (item.color === vm.color[value]) {
+            // 符合条件的拿出来
+            tmp.add(item.storage);
+            vm.product_list.push(item)
+
+          }
+        })
+        // 更新存储选项列表
+        this.storage = Array.from(tmp);
+        // 更新当前产品信息
+        this.product = this.product_list[0];
+        // 默认存储选择第一个
+        this.$set(this.radioStorage, 'choose', 0);
+
+      },
+      selectStorage: function (value) {
+        // console.log('改变之后的值是:' + this.storage[value])
+      },
+      collection: function () {
+
+      }
     },
   }
 
@@ -198,7 +272,7 @@
   @import '../assets/css/config.scss';
 
   #product {
-    margin-bottom: 60px;
+    padding: 50px 0;
     .el-row {
       padding: 10px;
     }
@@ -227,7 +301,29 @@
       background-color: $peach;
     }
 
+    .bottom_bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 9999+1;
+      width: 100%;
+      border-top: 1px solid $snow;
+      text-align: center;
+      button {
+        width: 80%;
+        margin: 0 auto;
+        display: block;
+      }
+      .iconfont {
+        font-size: 24px;
+      }
+    }
     .backBar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 999;
+      width: 100%;
       padding: 0 10px;
       height: 50px;
       line-height: 50px;
@@ -235,8 +331,8 @@
       b {
         font-size: 18px;
       }
-      .el-col-3{
-        text-align: right ;
+      .el-col-3 {
+        text-align: right;
       }
     }
 
@@ -263,11 +359,11 @@
         margin: 10px 10px 0 0;
       }
     }
-    .product_poster{
-        padding: 0;
-        h3{
-            padding: 10px
-        }
+    .product_poster {
+      padding: 0;
+      h3 {
+        padding: 10px
+      }
     }
   }
 

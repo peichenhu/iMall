@@ -5,10 +5,10 @@
     <swiper-slide v-for="item in CarouselData" :key="item.index">
 
       <router-link :to="{ name: 'product', params: { id: item.products_id }}" v-if="item.products_id">
-        <img :src="item.imageUrl" :alt="item.title">
+        <img :src="item.image_url" :alt="item.title">
       </router-link>
 
-      <img :src="item.imageUrl" :alt="item.title" v-else>
+      <img :src="item.image_url" :alt="item.title" v-else>
 
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>

@@ -4,7 +4,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 
 var CopyWebpackPlugin = require('copy-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
-
+function resolve (dir) {
+    return path.join(__dirname, '..', dir)
+  }
 module.exports = {
   entry: './src/main.js',
   output: {
@@ -13,7 +15,15 @@ module.exports = {
     // publicPath: '/demo/iMall/',// 部署到iHexo
     path: path.resolve(__dirname, './dist'),// 部署到 nodejs
     publicPath: '/',// 部署到 nodejs
-    filename: 'build.js?[hash]'
+    filename: 'build.js?[hash]',
+    chunkFilename: '[id].[hash].js'
+  },
+  
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      
+    }
   },
   module: {
     rules: [{
@@ -67,22 +77,31 @@ module.exports = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
-        loader: 'file-loader',
+        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        loader: 'url-loader',
         options: {
+          limit: 10000,
           name: './images/[name].[ext]?[hash]' // 源文件
         }
-      }, {
+      },
+      {
+        test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: './media/[name].[ext]?[hash]' // 源文件
+        }
+      },
+      {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'file-loader',
+        loader: 'url-loader',
         options: {
           limit: 10000,
           name: './fonts/[name].[ext]?[hash]' // 源文件
         }
-      }
+      },
     ],
   },
-
   plugins: [
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({

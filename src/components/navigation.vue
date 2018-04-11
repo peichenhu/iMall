@@ -1,6 +1,6 @@
 <template>
   <!-- 旅游导航条 -->
-  <nav>
+  <nav class="fixed_bottom">
     <el-row :gutter="20">
       <el-col :span="6">
         <router-link to="/">
@@ -62,6 +62,7 @@
 </script>
 <style lang="scss" scoped>
   @import '../assets/css/config.scss';
+  @import '../assets/css/reset.scss';
 
   .el-row {
     background-color: $snow;

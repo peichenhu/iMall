@@ -20,6 +20,8 @@
     <h3 class="bg_white color_ink">为您推荐</h3>
 
     <LayoutTrain :trainData="trainData"></LayoutTrain>
+    
+    <v-navigation></v-navigation>
   </div>
 
 </template>

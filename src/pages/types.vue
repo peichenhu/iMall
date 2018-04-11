@@ -5,13 +5,18 @@
     <hr>
     <h3 class="bg_white">手机</h3>
     <InlineBox :InlineBoxData="TypesPhoneData" :InlineBoxCount=4></InlineBox>
+    
+    <v-navigation></v-navigation>
   </div>
 
 </template>
 
 <script>
-  // 引入插件
-  import Axios from "axios"
+
+  import {
+    getTypesData
+  } from "../api/types"
+
   // 引入组件
   import TopBar from '../components/topBar'
   import InlineBox from '../components/InlineBox'
@@ -28,23 +33,23 @@
       TopBar,
       InlineBox
     },
-    created(){
-      this.getTypesPhoneData();
+
+    created() {
+      this.init();
     },
+
     methods: {
-      getTypesPhoneData: function () {
-        let types = this;
-        Axios.get("/getTypesPhoneData", {
-            cookie: "getTypesPhoneData"
-          }) // localhost-mock or 使用在线版easy-mock
+      init: function () {
+        let _this = this;
+
+        getTypesData() // 传参数会导致Mock 报错，所以暂时为空
           .then(function (response) {
-            types.TypesPhoneData = response.data;
-            console.log(response);
+            _this.TypesPhoneData = response.data.phone;
           })
           .catch(function (error) {
             console.log(error);
           });
-      },
+      }
     }
     
     
