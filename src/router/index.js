@@ -25,7 +25,6 @@ const routes = [
 
 // 3. 创建 router 实例，然后传 `routes` 配置
 export default new VueRouter({
-    
     // mode: 'history',
     routes // （缩写）相当于 routes: routes
 })

@@ -3,17 +3,17 @@
     <!-- 返回状态栏 -->
     <el-row class="backBar">
       <el-col :span="18" @click.native="goback">
-
         <i class="iconfont icon-left" :span="18"></i>
-        <span>
-          <b>产品名称</b>
-        </span>
-
+        <span><b>{{products.title}}</b></span>
       </el-col>
       <el-col :span="3">
+
+      <router-link to="/shoppingcart" >
         <el-button circle size="mini" :style="{padding:'5px'}">
           <i class="iconfont icon-cart"></i>
         </el-button>
+      </router-link>
+
       </el-col>
       <el-col :span="3">
         <el-button circle size="mini" :style="{padding:'5px'}">
@@ -179,25 +179,25 @@
         'product_id': this.$route.params.id
       };
 
-        let self = this;
-        let tmp = new Set();
-        let tmp2 = new Set();
+      let self = this;
+      let tmp = new Set();
+      let tmp2 = new Set();
       getProductById(params)
         .then(function (response) {
           // 先存储完整数据
-            self.products = response.data;
-            // 再拿出第一条数据作为默认
-            self.product = response.data.products_specifications[0];
-            // 拿出第一条的焦点图
-            self.CarouselData = self.product.product_images;
-            // 拿出所得颜色(数组去重)
-            response.data.products_specifications.forEach(item => {
-              tmp.add(item.color);
-              tmp2.add(item.storage)
-            })
-            // 同上,拿出所有存储格式(数组去重)
-            self.storage = Array.from(tmp2);
-            self.color = Array.from(tmp);
+          self.products = response.data;
+          // 再拿出第一条数据作为默认
+          self.product = response.data.products_specifications[0];
+          // 拿出第一条的焦点图
+          self.CarouselData = self.product.product_images;
+          // 拿出所得颜色(数组去重)
+          response.data.products_specifications.forEach(item => {
+            tmp.add(item.color);
+            tmp2.add(item.storage)
+          })
+          // 同上,拿出所有存储格式(数组去重)
+          self.storage = Array.from(tmp2);
+          self.color = Array.from(tmp);
         })
         .catch(function (error) {
           console.log(error);

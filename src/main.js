@@ -1,6 +1,5 @@
 // main
 import Vue from 'vue'
-import Vuex from 'vuex' // 多个视图依赖于同一状态。来自不同视图的行为需要变更同一状态。
 
 // 视图UI
 import ElementUI from 'element-ui';
@@ -24,12 +23,16 @@ if ('addEventListener' in document) {
   }, false);
 }
 
-Vue.use(ElementUI, VueAwesomeSwiper, Vuex, )
+
+Vue.use(ElementUI, VueAwesomeSwiper)
 
 import App from './App'
 import router from './router'
+import store from './store'
+
 const vm = new Vue({
   el: '#app',
   router,
+  store,
   render: h => h(App)
 })

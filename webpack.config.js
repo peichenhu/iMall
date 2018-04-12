@@ -14,7 +14,7 @@ module.exports = {
     // path: path.resolve(__dirname, '../iHexo/source/demo/iMall'), // 部署到iHexo
     // publicPath: '/demo/iMall/',// 部署到iHexo
     path: path.resolve(__dirname, './dist'),// 部署到 nodejs
-    publicPath: '/',// 部署到 nodejs
+    publicPath: '/',// 部署到 nodejs 
     filename: 'build.js?[hash]',
     chunkFilename: '[id].[hash].js'
   },
