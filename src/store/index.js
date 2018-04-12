@@ -1,94 +1,88 @@
 import Vuex from 'vuex' // 多个视图依赖于同一状态。来自不同视图的行为需要变更同一状态。
 import Vue from 'vue'
+import {
+  changeLocalStorageCart,
+  changeLocalStorageCollections,
+  getLocalStorageCart,
+  getLocalStorageCollections
+} from './localStorage'
 
 Vue.use(Vuex)
+const initCart = getLocalStorageCart()
+const initCollections = getLocalStorageCollections()
 
-const moduleCart = {
+export default new Vuex.Store({
   state: {
-    shoppingcart: [], // 购物车数据
+    shoppingcart: initCart, // 购物车数据
+    collections: initCollections // 收藏数据
   },
   // 增删数据
   mutations: {
-    addShoppingcart(state, products_id) {
-      let tmp = state.shoppingcart;
-      state.shoppingcart.length = 0;
-      state.shoppingcart = Array.from(new Set(tmp).add(products_id))
-    },
-    deletShoppingcart(state, products_id) {
-      let tmp = state.shoppingcart;
-      state.shoppingcart.length = 0;
-      state.shoppingcart = Array.from(new Set(tmp).delete(products_id))
-    }
-  },
-  getters: {
-    getShoppingcart: state => {
-      return state.shoppingcart;
-    },
-    isIncludeShoppingcart: (state) => (products_id) => {
-      return state.shoppingcart.includes(products_id);
-    }
-  },
-  actions: {
-    addShoppingcart({
-      commit,
-      state
-    }, products_id) { // ES^ 函数参数解构赋值
-      commit('addShoppingcart')
-    },
-    deletShoppingcart({
-      commit,
-      state
-    }, products_id) { // ES^ 函数参数解构赋值
-      commit('deletShoppingcart')
-    }
-  }
-}
-
-const moduleCollections = {
-  state: {
-    collections: [] // 收藏数据
-  },
-  // 增删数据
-  mutations: {
+    // 添加收藏
     addCollections(state, products_id) {
-      let tmp = state.collections;
+
+      let tmp = new Set(state.collections);
+      tmp.add(products_id)
       state.collections.length = 0;
-      state.collections = Array.from(new Set(tmp).delete(products_id))
+      state.collections = Array.from(tmp);
+
+      changeLocalStorageCollections(state.collections);
     },
+    // 删除收藏
     deletCollections(state, products_id) {
-      let tmp = state.collections;
+
+      let tmp = new Set(state.collections);
+      tmp.delete(products_id);
       state.collections.length = 0;
-      state.collections = Array.from(new Set(tmp).delete(products_id))
+      state.collections = Array.from(tmp);
+
+      changeLocalStorageCollections(state.collections);
     },
-  },
-  getters: {
-    getCollections: state => {
-      return state.collections;
+    addToCart(state, products_id) {
+      state.shoppingcart.push(products_id);
+      state.shoppingcart.sort();
+      changeLocalStorageCart(state.shoppingcart);
     },
-    isIncludeCollections: (state) => (products_id) => {
-      return state.collections.includes(products_id);
+    deletCart(state, products_id) {
+      let index = state.shoppingcart.findIndex(item => products_id === item);
+      let tmp = state.shoppingcart[0]
+      state.shoppingcart[0] = state.shoppingcart[index]
+      state.shoppingcart[index] = frist
+      state.shoppingcart.shift();
+
+      changeLocalStorageCart(state.shoppingcart);
     }
   },
+  getters: {
+    getShoppingcart: state => state.shoppingcart,
+    getCollections: state => state.collections
+
+  },
   actions: {
+    addCart({
+      commit,
+      state
+    }, products_id) { // ES^ 函数参数解构赋值
+      commit('addToCart', products_id)
+    },
+    deletCart({
+      commit,
+      state
+    }, products_id) { // ES^ 函数参数解构赋值
+      commit('deletCart', products_id)
+    },
     addCollections({
       commit,
       state
     }, products_id) { // ES^ 函数参数解构赋值
-      commit('addCollections')
+      commit('addCollections', products_id)
     },
     deletCollections({
       commit,
       state
     }, products_id) { // ES^ 函数参数解构赋值
-      commit('deletCollections')
+      commit('deletCollections', products_id)
     },
-  }
-}
-
-export default new Vuex.Store({
-  modules: {
-    Cart: moduleCart,
-    Collections: moduleCollections
   }
 })
 
@@ -231,4 +225,4 @@ export default new Vuex.Store({
  *   })
  * }
  * 
-*/
+ */

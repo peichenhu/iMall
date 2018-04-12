@@ -1,6 +1,6 @@
 # WebApp 商城
 
-> 基于 vue 2.0,vue-router, vue-awesome-swiper,element-ui, mockjs,sass,axios,webpack,
+> 基于 vue 2.0,vue-router, vue-awesome-swiper,element-ui, mockjs,sass,axios,webpack,vuex
 
 ## 构建指令
 
@@ -16,6 +16,8 @@ npm run build
 ```
 
 ## 重点难点
+### rem
+
 
 ### element-ui swiper
 

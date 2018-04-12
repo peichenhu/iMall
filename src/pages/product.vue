@@ -4,15 +4,17 @@
     <el-row class="backBar">
       <el-col :span="18" @click.native="goback">
         <i class="iconfont icon-left" :span="18"></i>
-        <span><b>{{products.title}}</b></span>
+        <span>
+          <b>{{products.title}}</b>
+        </span>
       </el-col>
       <el-col :span="3">
 
-      <router-link to="/shoppingcart" >
-        <el-button circle size="mini" :style="{padding:'5px'}">
-          <i class="iconfont icon-cart"></i>
-        </el-button>
-      </router-link>
+        <router-link to="/shoppingcart">
+          <el-button circle size="mini" :style="{padding:'5px'}">
+            <i class="iconfont icon-cart"></i>
+          </el-button>
+        </router-link>
 
       </el-col>
       <el-col :span="3">
@@ -24,15 +26,14 @@
     <!-- 底部状态栏 -->
     <el-row class="bottom_bar">
       <el-col :span="4">
-        <i class="iconfont icon-biaoxing" @click="collection"></i>
+        <i class="iconfont" :class="isCollections ? 'icon-biaoxingfill' : 'icon-biaoxing'" @click="changeCollections"></i>
       </el-col>
       <el-col :span="10">
-        <el-button round size="mini">加入购物车</el-button>
+        <el-button round size="mini" @click="addToCart">加入购物车</el-button>
       </el-col>
       <el-col :span="10">
         <el-button type="danger" round size="mini">立即购买</el-button>
       </el-col>
-
     </el-row>
     <!-- 轮播图组件 -->
     <Carousel :CarouselData="CarouselData"></Carousel>
@@ -153,9 +154,13 @@
     getProductById
   } from "../api/product"
   import Carousel from '../components/carousel'
+  import {
+    mapState,
+    mapGetters,
+    mapActions
+  } from 'vuex'
 
   export default {
-
     name: 'index',
     components: {
       Carousel,
@@ -170,8 +175,20 @@
         storage: [], // 去重后的产品存储表
         radioColor: {}, // 颜色单选按钮模型
         radioStorage: {}, // 存储单选按钮模型
-        radioSuit: {} // 套装单选按钮模型（未开启）
+        radioSuit: {}, // 套装单选按钮模型（未开启）
+        product_id: this.$route.params.id,
+        select_product: {
+          color: null,
+          storage: null
+        }
       }
+    },
+    computed: {
+      ...mapState({
+        isCollections(state) {
+          return state.collections.includes(this.product_id)
+        }
+      }),
     },
     created() {
       let _this = this;
@@ -203,14 +220,16 @@
           console.log(error);
         });
     },
-    watch: {
-
-    },
     methods: {
+      ...mapActions([
+        'addCollections',
+        'deletCollections',
+        'addCart',
+        'deletCart'
+      ]),
       goback: function () {
         window.history.go(-1)
       },
-
       getProductById: function (id) {
         let self = this;
         let tmp = new Set();
@@ -238,31 +257,70 @@
 
       },
       selectColor: function (value) {
-        // console.log('改变之后的值是:' + this.color[value])
         // 根据 value 获取 符合条件的 product
-        let vm = this;
-        var tmp = new Set();
+        let _this = this;
+        let tmp = new Set();
+        let product_list = [];
         this.products.products_specifications.forEach(function (item) {
-          if (item.color === vm.color[value]) {
-            // 符合条件的拿出来
+          if (item.color === _this.color[value]) {
+            // 符合条件的拿出来去重
             tmp.add(item.storage);
-            vm.product_list.push(item)
-
+            product_list.push(item)
           }
         })
         // 更新存储选项列表
         this.storage = Array.from(tmp);
         // 更新当前产品信息
-        this.product = this.product_list[0];
+        this.product = product_list[0];
         // 默认存储选择第一个
         this.$set(this.radioStorage, 'choose', 0);
 
+        this.select_product.storage = this.storage[0];
+        this.select_product.color = this.color[value];
+        console.log('改变之后的值是:' + JSON.stringify(this.select_product))
+
       },
       selectStorage: function (value) {
-        // console.log('改变之后的值是:' + this.storage[value])
-      },
-      collection: function () {
+        // 根据 value 获取 符合条件的 product
+        let _this = this;
+        let tmp = new Set();
+        let product_list = [];
+        this.products.products_specifications.forEach(function (item) {
+          if (item.storage === _this.storage[value]) {
+            // 符合条件的拿出来去重
+            tmp.add(item.color);
+            product_list.push(item)
+          }
+        })
+        // 更新存储选项列表
+        this.color = Array.from(tmp);
+        // 更新当前产品信息
+        this.product = product_list[0];
+        // 默认存储选择第一个
+        this.$set(this.radioColor, 'choose', 0);
 
+        this.select_product.color = this.color[0];
+        this.select_product.storage = this.storage[value];
+        console.log('改变之后的值是:' + JSON.stringify(this.select_product))
+      },
+      changeCollections: function () {
+        if (this.isCollections === true) {
+          this.deletCollections(this.product_id)
+        } else {
+          this.addCollections(this.product_id)
+        }
+      },
+      addToCart: function () {
+        if (!this.select_product.color || !this.select_product.storage) {
+          alert("选择先一款产品!")
+        }else{
+            let _this = this;
+            let color = this.select_product.color;
+            let storage = this.select_product.storage;
+            let product = this.products.products_specifications.find( item=> item.color === color && item.storage === storage) 
+            console.log(product.id)
+            _this.addCart(product.id)
+        }
       }
     },
   }
