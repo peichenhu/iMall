@@ -13,10 +13,10 @@ import {
     products_z17 ,
     products_v18 ,
 
-    indexData
+    indexData,
+
+    cartRecommendData
 } from './database'
-
-
 
 const products_list = [
       product_v18_1,
@@ -24,7 +24,8 @@ const products_list = [
       product_v18_3,
       product_z17_1,
 ];
-const products_modle = [
+
+const products_model = [
     products_z17,
     products_v18
 ]
@@ -54,7 +55,7 @@ Mock.mock('/get_product_by_id', 'post', function(options){
         }
     });
     
-    products_modle.forEach(function(item){
+    products_model.forEach(function(item){
         if(item.model == model){
             tmp=item
         }
@@ -62,4 +63,23 @@ Mock.mock('/get_product_by_id', 'post', function(options){
     return tmp;
 });
 
+Mock.mock('/get_cart_recommend','get', cartRecommendData)
 
+// cart
+
+
+Mock.mock('/get_products_by_ids','post', function(options){
+    let products_id = JSON.parse(options.body).products_id;
+    let result=[];
+    // 遍历产品列表
+    products_list.forEach(function(item){
+        // 如果该产品在购物车内
+        if( products_id.includes(String(item.id))){
+            // 获取该购物车中产品数量
+            let tmp = products_id.filter(i=>i==String(item.id))
+            item['count'] = tmp.length;
+            result.push(item)
+        }
+    });
+    return result;
+})

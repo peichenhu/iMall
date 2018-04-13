@@ -240,3 +240,21 @@ export const indexData = {
     ]
   }
 }
+
+export const cartRecommendData ={
+    
+    "title": "为您推荐",
+    "recommend": {
+      "id": 1013,
+      "title": "Nubia Z17S",
+      "description": "全面屏 无边框",
+      "image_url": "https://oss.static.nubia.cn/blockimage/150779856642.jpg",
+      "products_id": '0000'
+    },
+    "products_list": [
+      product_v18_1,
+      product_z17_1,
+      product_v18_2,
+    ]
+  
+}

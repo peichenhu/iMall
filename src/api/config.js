@@ -1,6 +1,6 @@
 const baseURL = '';
 const domain = '';
-const ajax = require('axios').create({
+const Axios = require('axios').create({
   baseURL: baseURL,
   timeout: 0,
 //   withCredentials: true, // 允许跨域 cookie
@@ -22,13 +22,13 @@ const ajax = require('axios').create({
 
 // get
 export const _get = (req) => {
-  return ajax.get(req.url, {
+  return Axios.get(req.url, {
     params: req.data
   })
 }
 // post
 export const _post = (req) => {
-  return ajax({
+  return Axios({
     method: 'post',
     url: req.url,
     data: req.data

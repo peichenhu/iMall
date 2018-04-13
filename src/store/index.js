@@ -13,7 +13,7 @@ const initCollections = getLocalStorageCollections()
 
 export default new Vuex.Store({
   state: {
-    shoppingcart: initCart, // 购物车数据
+    cart: initCart, // 购物车数据
     collections: initCollections // 收藏数据
   },
   // 增删数据
@@ -39,22 +39,22 @@ export default new Vuex.Store({
       changeLocalStorageCollections(state.collections);
     },
     addToCart(state, products_id) {
-      state.shoppingcart.push(products_id);
-      state.shoppingcart.sort();
-      changeLocalStorageCart(state.shoppingcart);
+      state.cart.push(products_id);
+      state.cart.sort();
+      changeLocalStorageCart(state.cart);
     },
     deletCart(state, products_id) {
-      let index = state.shoppingcart.findIndex(item => products_id === item);
-      let tmp = state.shoppingcart[0]
-      state.shoppingcart[0] = state.shoppingcart[index]
-      state.shoppingcart[index] = frist
-      state.shoppingcart.shift();
+      let index = state.cart.findIndex(item => products_id === item);
+      let tmp = state.cart[0];
+      state.cart[0] = state.cart[index];
+      state.cart[index] = tmp;
+      state.cart.shift();
 
-      changeLocalStorageCart(state.shoppingcart);
+      changeLocalStorageCart(state.cart);
     }
   },
   getters: {
-    getShoppingcart: state => state.shoppingcart,
+    getCart: state => state.cart,
     getCollections: state => state.collections
 
   },

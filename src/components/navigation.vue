@@ -22,9 +22,9 @@
         </router-link>
       </el-col>
       <el-col :span="6">
-        <router-link to="/shoppingcart">
+        <router-link to="/cart">
           <div class="grid-content bg-purple nav_btn">
-            <i class="iconfont" v-if="'/shoppingcart' === currentRouter" v-bind:class="{'icon-cart-fill' : true}"></i>
+            <i class="iconfont" v-if="'/cart' === currentRouter" v-bind:class="{'icon-cart-fill' : true}"></i>
             <i class="iconfont" v-else v-bind:class="{'icon-cart' : true}"></i>
             <span>购物车</span>
           </div>

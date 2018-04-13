@@ -8,7 +8,7 @@ import Index from '../pages/index'
 // 分类
 import Types from '../pages/types'
 // 购物车
-import ShoppingCart from '../pages/shoppingcart'
+import Cart from '../pages/cart'
 // 账户
 import Account from '../pages/account'
 // 产品
@@ -18,8 +18,9 @@ import Product from '../pages/product'
 const routes = [
     { path: '/', component: Index , meta: {keepAlive: true}},
     { path: '/types', component: Types , meta: {keepAlive: true}},
-    { path: '/shoppingcart', component: ShoppingCart , meta: {keepAlive: true}},
     { path: '/account', component: Account , meta: {keepAlive: true}},
+    
+    { path: '/cart', component: Cart , meta: {keepAlive: false}},
     { path: '/product/:id/', name:'product',component: Product , meta: {keepAlive: false}}
 ]
 

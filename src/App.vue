@@ -3,7 +3,6 @@
 
     <!-- 路由出口 -->
     <!-- 路由匹配到的组件将渲染在这里 -->
-    {{count}} 
     <transition>
       <keep-alive>
         <!-- 保留组件状态或避免重新渲染。 -->
@@ -55,15 +54,7 @@
     computed: {
       // 计算属性将被混入到 Vue 实例中。所有 getter 和 setter 的 this 上下文自动地绑定为 Vue 实例。
       // 注意如果你为一个计算属性使用了箭头函数，则 this 不会指向这个组件的实例，不过你仍然可以将其实例作为函数的第一个参数来访问。
-      count() {
-        return this.$store.state.count
-      },
-    //   ...mapState({ //对象展开运算符将mapState 函数返回的对象展开与局部计算属性混合使用
-    //     count: state => state.count,
-    //   }),
-    //   ...mapGetters([ //对象展开运算符将mapState 函数返回的对象展开与局部计算属性混合使用
-    //     'getCount',
-    //   ])
+
     },
     methods: {
       // methods 将被混入到 Vue 实例中。

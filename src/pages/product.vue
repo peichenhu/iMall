@@ -1,28 +1,7 @@
 <template>
   <div id="product" v-if="products">
     <!-- 返回状态栏 -->
-    <el-row class="backBar">
-      <el-col :span="18" @click.native="goback">
-        <i class="iconfont icon-left" :span="18"></i>
-        <span>
-          <b>{{products.title}}</b>
-        </span>
-      </el-col>
-      <el-col :span="3">
-
-        <router-link to="/shoppingcart">
-          <el-button circle size="mini" :style="{padding:'5px'}">
-            <i class="iconfont icon-cart"></i>
-          </el-button>
-        </router-link>
-
-      </el-col>
-      <el-col :span="3">
-        <el-button circle size="mini" :style="{padding:'5px'}">
-          <i class="iconfont icon-msg"></i>
-        </el-button>
-      </el-col>
-    </el-row>
+    <Backbar :title="products.title"></Backbar>
     <!-- 底部状态栏 -->
     <el-row class="bottom_bar">
       <el-col :span="4">
@@ -76,69 +55,8 @@
 
     </el-row>
     <!-- 产品参数 套装 -->
-    <!-- <el-row class="product_suit">
-      <h3>套装</h3>
-      <el-collapse accordion>
-        <el-collapse-item>
-          <template slot="title">
-            <el-radio v-model="radio3" label=" 标准版" size="mini"></el-radio>
-            ：2899，
-            <del>3288</del>,省 200 元
-            <i class="header-icon el-icon-info"></i>
-          </template>
-          <div class="suit_list">
-            <p>
-              <img :src="DefaultIMg" :alt="DefaultIMg">
-            </p>
-            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
-            <p>￥1399</p>
-          </div>
-          <div class="suit_list">
-            <p>
-              <img :src="DefaultIMg" :alt="DefaultIMg">
-            </p>
-            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
-            <p>￥1399</p>
-          </div>
-          <div class="suit_list">
-            <p>
-              <img :src="DefaultIMg" :alt="DefaultIMg">
-            </p>
-            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
-            <p>￥1399</p>
-          </div>
-        </el-collapse-item>
-        <el-collapse-item>
-          <template slot="title">
-            <el-radio v-model="radio3" label=" 套装版" size="mini"></el-radio>
-            ：2899，
-            <del>3288</del>,省 200 元
-            <i class="header-icon el-icon-info"></i>
-          </template>
-          <div class="suit_list">
-            <p>
-              <img :src="DefaultIMg" :alt="DefaultIMg">
-            </p>
-            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
-            <p>￥1399</p>
-          </div>
-        </el-collapse-item>
-        <el-collapse-item>
-          <template slot="title">
-            <el-radio v-model="radio3" label=" 单机版" size="mini"></el-radio>
-            ：2899，
-            <del>3288</del>,省 200 元
-          </template>
-          <div class="suit_list">
-            <p>
-              <img :src="DefaultIMg" :alt="DefaultIMg">
-            </p>
-            <p>产品标题产品标题产品标题产品标题（6G+64G 墨黑）</p>
-            <p>￥1399</p>
-          </div>
-        </el-collapse-item>
-      </el-collapse>
-    </el-row> -->
+    <Suit></Suit>
+    <!-- 产品海报 -->
     <el-row class="product_poster">
       <h3>概述</h3>
       <div>
@@ -154,6 +72,8 @@
     getProductById
   } from "../api/product"
   import Carousel from '../components/carousel'
+  import Backbar from '../components/backbar'
+  import Suit from './product/suit'
   import {
     mapState,
     mapGetters,
@@ -164,6 +84,8 @@
     name: 'index',
     components: {
       Carousel,
+      Backbar,
+      Suit
     },
     data: function () {
       return {
@@ -175,7 +97,6 @@
         storage: [], // 去重后的产品存储表
         radioColor: {}, // 颜色单选按钮模型
         radioStorage: {}, // 存储单选按钮模型
-        radioSuit: {}, // 套装单选按钮模型（未开启）
         product_id: this.$route.params.id,
         select_product: {
           color: null,
@@ -227,35 +148,6 @@
         'addCart',
         'deletCart'
       ]),
-      goback: function () {
-        window.history.go(-1)
-      },
-      getProductById: function (id) {
-        let self = this;
-        let tmp = new Set();
-        let tmp2 = new Set();
-        Axios.get("/getProduct", {})
-          .then(response => {
-            // 先存储完整数据
-            self.products = response.data;
-            // 再拿出第一条数据作为默认
-            self.product = response.data.products_specifications[0];
-            // 拿出第一条的焦点图
-            self.CarouselData = self.product.product_images;
-            // 拿出所得颜色(数组去重)
-            response.data.products_specifications.forEach(item => {
-              tmp.add(item.color);
-              tmp2.add(item.storage)
-            })
-            // 同上,拿出所有存储格式(数组去重)
-            self.storage = Array.from(tmp2);
-            self.color = Array.from(tmp);
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-
-      },
       selectColor: function (value) {
         // 根据 value 获取 符合条件的 product
         let _this = this;
@@ -314,12 +206,11 @@
         if (!this.select_product.color || !this.select_product.storage) {
           alert("选择先一款产品!")
         }else{
-            let _this = this;
             let color = this.select_product.color;
             let storage = this.select_product.storage;
             let product = this.products.products_specifications.find( item=> item.color === color && item.storage === storage) 
             console.log(product.id)
-            _this.addCart(product.id)
+            this.addCart(product.id)
         }
       }
     },
@@ -328,33 +219,19 @@
 </script>
 <style lang="scss" scoped>
   @import '../assets/css/config.scss';
-
   #product {
     padding: 50px 0;
-    .el-row {
-      padding: 10px;
-    }
+
     h3 {
       border-bottom: 1px solid #FAFAFA;
     }
-    .suit_list {
-      display: flex;
-      flex-flow: row nowrap;
-      margin-bottom: 10px;
-      p {
-        &:first-child {
-          width: 25%;
-          margin: 0 10px;
-          flex-grow: 0;
-        }
-        &:last-child {
-          width: 25%;
-          margin-left: 10px;
-          flex-grow: 0;
-
-        }
-      }
+    .product_brief ,
+    .product_sale,
+    .product_parameter,
+    .bottom_bar {
+      padding: 10px;
     }
+
     .el-collapse-item.is-active {
       background-color: $peach;
     }
@@ -374,23 +251,6 @@
       }
       .iconfont {
         font-size: 24px;
-      }
-    }
-    .backBar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 999;
-      width: 100%;
-      padding: 0 10px;
-      height: 50px;
-      line-height: 50px;
-      border-bottom: 1px solid $cloud;
-      b {
-        font-size: 18px;
-      }
-      .el-col-3 {
-        text-align: right;
       }
     }
 
@@ -417,6 +277,7 @@
         margin: 10px 10px 0 0;
       }
     }
+
     .product_poster {
       padding: 0;
       h3 {

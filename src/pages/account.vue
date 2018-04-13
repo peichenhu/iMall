@@ -26,7 +26,7 @@
 
 </script>
 <style lang="scss" scoped>
-    #shoppingcart{
+    #cart{
         display: block;
     }
 </style>
