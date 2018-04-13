@@ -37,7 +37,6 @@ const typesData ={
     ]
 }
 
-
 // index
 Mock.mock('/get_index_data', 'get', indexData);
 Mock.mock('/get_types_data', 'get', typesData);
@@ -67,16 +66,15 @@ Mock.mock('/get_cart_recommend','get', cartRecommendData)
 
 // cart
 
-
 Mock.mock('/get_products_by_ids','post', function(options){
     let products_id = JSON.parse(options.body).products_id;
     let result=[];
-    // 遍历产品列表
+    // 遍历所有产品列表
     products_list.forEach(function(item){
         // 如果该产品在购物车内
-        if( products_id.includes(String(item.id))){
+        if( products_id.includes(item.id)){
             // 获取该购物车中产品数量
-            let tmp = products_id.filter(i=>i==String(item.id))
+            let tmp = products_id.filter(i=>i==item.id)
             item['count'] = tmp.length;
             result.push(item)
         }

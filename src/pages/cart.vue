@@ -3,17 +3,17 @@
 
     <TitleBar></TitleBar>
     <!-- 非空车 -->
-    <ul class="cart_full" v-if="cartProductlist && cartProductlist.length>0">
+    <ul class="cart_full" v-if="cartProductsData && cartProductsData.length>0">
 
         <div class="cart_tip">
-        <p>当前购物车包含 {{ cart_id_list.length }} 件商品 </p>
+        <p>当前购物车包含 {{ store_cart.length }} 件商品 </p>
         <p v-on:click="handlerEdit()">
             <span v-if="isEdit">完成</span>
             <span v-else>编辑</span>
         </p>
         </div>
       <el-checkbox-group v-model="selectProduct" @change="handleSelectProductChange">
-        <li class="cart_list" v-for="(item, index) in cartProductlist" :key="index">
+        <li class="cart_list" v-for="(item, index) in cartProductsData" :key="index">
           <div>
             <el-checkbox :label="index+1"></el-checkbox>
           </div>
@@ -37,16 +37,12 @@
     </ul>
     <!-- 空车 -->
     <ul class="cart_empty" v-else>
+      <li> <i class="iconfont icon-cart"></i> </li>
+      <li>购物车还是空的</li>
       <li>
-        <i class="iconfont icon-cart"></i>
-      </li>
-      <li>
-        <p>购物车还是空的</p>
-      </li>
-      <li>
-      <router-link to="/">
-        <el-button type="danger" plain>去购物</el-button>
-      </router-link>
+        <router-link to="/">
+            <el-button type="danger" plain>去购物</el-button>
+        </router-link>
       </li>
     </ul>
 
@@ -61,13 +57,14 @@
   import LayoutTrain from "../components/layoutTrain"
   import {
     getRecommend,
-    getProductsByIds
+    getProductsById
   } from '../api/cart'
 
   import {
     mapState,
     mapActions
   } from "vuex"
+
   export default {
     components: {
       TitleBar,
@@ -76,17 +73,17 @@
     data: function () {
       return {
         recommendData: null,
+        cartProductsData: null,
         selectProduct: [],
-        cartProductlist: null,
         isEdit: false
       }
     },
     created() {
-      this.init(this.cart_id_list);
+      this.init(this.store_cart);
     },
     computed: {
       ...mapState({
-        'cart_id_list': 'cart'
+        'store_cart': 'cart'
       })
     },
     methods: {
@@ -94,52 +91,33 @@
         addCart: 'addCart',
         deletCart: 'deletCart',
       }),
-      init: function (ids) {
+      init: function () {
         let _this = this;
         // 获取推荐数据
         getRecommend()
-          .then(function (response) {
-            _this.recommendData = response.data
-          })
+          .then(({data}) =>_this.recommendData = data)
           .catch(error => console.log(error));
-          // 获取购物车数据
-        let params = { products_id: ids };
-
-        getProductsByIds(params)
-          .then(function (response) {
-            _this.cartProductlist = response.data;
-          })
+        // 获取购物车数据
+        getProductsById({ 'products_id': this.store_cart })
+          .then(({data}) => _this.cartProductsData = data )
           .catch(error => console.log(error))
       },
       handlerEdit: function () {
         this.isEdit = !this.isEdit;
       },
       countMinus: function (product_id) {
-        let _this = this
-        this.cartProductlist.forEach(function(item){
-            if(item.id === product_id && item.count > 1){
-                _this.deletCart(product_id);// 更新store
-                item.count--; // 本地数据
-            }
-        });
+        this.deletCart(product_id);// 更新store
+        this.init();
       },
       countPlus: function (product_id) {
-
-        let _this = this
-        this.cartProductlist.forEach(function(item){
-            if(item.id === product_id ){
-                _this.addCart(product_id);// 更新store
-                item.count++; // 本地数据
-            }
-        });
+        this.addCart(product_id);// 更新store
+        this.init();
       },
       handleSelectProductChange(value) {
         console.log(value)
       }
     }
-
   }
-
 </script>
 <style lang="scss">
   @import '../assets/css/config.scss';

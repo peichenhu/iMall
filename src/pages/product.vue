@@ -112,42 +112,43 @@
       }),
     },
     created() {
-      let _this = this;
-      let params = {
-        'product_id': this.$route.params.id
-      };
-
-      let self = this;
-      let tmp = new Set();
-      let tmp2 = new Set();
-      getProductById(params)
-        .then(function (response) {
-          // 先存储完整数据
-          self.products = response.data;
-          // 再拿出第一条数据作为默认
-          self.product = response.data.products_specifications[0];
-          // 拿出第一条的焦点图
-          self.CarouselData = self.product.product_images;
-          // 拿出所得颜色(数组去重)
-          response.data.products_specifications.forEach(item => {
-            tmp.add(item.color);
-            tmp2.add(item.storage)
-          })
-          // 同上,拿出所有存储格式(数组去重)
-          self.storage = Array.from(tmp2);
-          self.color = Array.from(tmp);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
+      this.init()
     },
     methods: {
       ...mapActions([
         'addCollections',
         'deletCollections',
-        'addCart',
-        'deletCart'
+        'addCart'
       ]),
+      init: function () {
+        let _this = this;
+        let params = {
+          'product_id': this.$route.params.id
+        };
+
+        let tmp = new Set();
+        let tmp2 = new Set();
+        getProductById(params)
+          .then(function (response) {
+            // 先存储完整数据
+            _this.products = response.data;
+            // 再拿出第一条数据作为默认
+            _this.product = response.data.products_specifications[0];
+            // 拿出第一条的焦点图
+            _this.CarouselData = _this.product.product_images;
+            // 拿出所得颜色(数组去重)
+            response.data.products_specifications.forEach(item => {
+              tmp.add(item.color);
+              tmp2.add(item.storage)
+            })
+            // 同上,拿出所有存储格式(数组去重)
+            _this.storage = Array.from(tmp2);
+            _this.color = Array.from(tmp);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      },
       selectColor: function (value) {
         // 根据 value 获取 符合条件的 product
         let _this = this;
@@ -205,15 +206,16 @@
       addToCart: function () {
         if (!this.select_product.color || !this.select_product.storage) {
           alert("选择先一款产品!")
-        }else{
-            let color = this.select_product.color;
-            let storage = this.select_product.storage;
-            let product = this.products.products_specifications.find( item=> item.color === color && item.storage === storage) 
-            console.log(product.id)
-            this.addCart(product.id)
+        } else {
+          let color = this.select_product.color;
+          let storage = this.select_product.storage;
+          let product = this.products.products_specifications.find(item => item.color === color && item.storage ===
+            storage)
+          console.log(product.id)
+          this.addCart(product.id)
         }
       }
-    },
+    }
   }
 
 </script>
@@ -225,7 +227,7 @@
     h3 {
       border-bottom: 1px solid #FAFAFA;
     }
-    .product_brief ,
+    .product_brief,
     .product_sale,
     .product_parameter,
     .bottom_bar {

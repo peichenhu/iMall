@@ -1,5 +1,6 @@
 import Vuex from 'vuex' // 多个视图依赖于同一状态。来自不同视图的行为需要变更同一状态。
 import Vue from 'vue'
+// import _ from 'lodash'
 import {
   changeLocalStorageCart,
   changeLocalStorageCollections,
@@ -20,36 +21,46 @@ export default new Vuex.Store({
   mutations: {
     // 添加收藏
     addCollections(state, products_id) {
-
+      // 创建Set去重
       let tmp = new Set(state.collections);
+      // 添加ID
       tmp.add(products_id)
+      // 清空Store收藏
       state.collections.length = 0;
+      // 赋值Store收藏
       state.collections = Array.from(tmp);
-
+      // 更新本地存储
       changeLocalStorageCollections(state.collections);
     },
     // 删除收藏
     deletCollections(state, products_id) {
-
+      // 创建Set去重
       let tmp = new Set(state.collections);
+      // 删除ID
       tmp.delete(products_id);
+      // 清空Store收藏
       state.collections.length = 0;
+      // 赋值Store收藏
       state.collections = Array.from(tmp);
-
+      // 更新本地存储
       changeLocalStorageCollections(state.collections);
     },
-    addToCart(state, products_id) {
-      state.cart.push(products_id);
+    // 添加某一个到购物车
+    addCart(state, product_id) {
+        // 添加ID
+      state.cart.push(product_id);
+      // 简单排序，可选
       state.cart.sort();
+      // 更新本地存储
       changeLocalStorageCart(state.cart);
     },
-    deletCart(state, products_id) {
-      let index = state.cart.findIndex(item => products_id === item);
-      let tmp = state.cart[0];
-      state.cart[0] = state.cart[index];
-      state.cart[index] = tmp;
-      state.cart.shift();
-
+    // 删除某一个从购物车
+    deletCart(state, product_id) {
+      // 查找该ID第一次出现的位置
+      let tmp_index = state.cart.findIndex(i => i === product_id);
+      // 如果存在，删除第一个id
+      if (tmp_index !== -1) state.cart.splice(tmp_index, 1)
+      // 更新本地存储
       changeLocalStorageCart(state.cart);
     }
   },
@@ -62,26 +73,26 @@ export default new Vuex.Store({
     addCart({
       commit,
       state
-    }, products_id) { // ES^ 函数参数解构赋值
-      commit('addToCart', products_id)
+    }, e) { // ES^ 函数参数解构赋值
+      commit('addCart', e)
     },
     deletCart({
       commit,
       state
-    }, products_id) { // ES^ 函数参数解构赋值
-      commit('deletCart', products_id)
+    }, e) { // ES^ 函数参数解构赋值
+      commit('deletCart', e)
     },
     addCollections({
       commit,
       state
-    }, products_id) { // ES^ 函数参数解构赋值
-      commit('addCollections', products_id)
+    }, e) { // ES^ 函数参数解构赋值
+      commit('addCollections', e)
     },
     deletCollections({
       commit,
       state
-    }, products_id) { // ES^ 函数参数解构赋值
-      commit('deletCollections', products_id)
+    }, e) { // ES^ 函数参数解构赋值
+      commit('deletCollections', e)
     },
   }
 })

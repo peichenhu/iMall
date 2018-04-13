@@ -16,11 +16,11 @@ import Product from '../pages/product'
 
 // 2. 定义路由
 const routes = [
-    { path: '/', component: Index , meta: {keepAlive: true}},
-    { path: '/types', component: Types , meta: {keepAlive: true}},
-    { path: '/account', component: Account , meta: {keepAlive: true}},
-    
-    { path: '/cart', component: Cart , meta: {keepAlive: false}},
+    { path: '/', name:'home', component: Index , meta: {keepAlive: true}},
+    { path: '/types', name:'types', component: Types , meta: {keepAlive: true}},
+    { path: '/account', name:'account', component: Account , meta: {keepAlive: true}},
+
+    { path: '/cart', name:'cart', component: Cart , meta: {keepAlive: false}},
     { path: '/product/:id/', name:'product',component: Product , meta: {keepAlive: false}}
 ]
 

@@ -6,35 +6,25 @@
  * localStorage.removeItem("myCat");
  */
 
+// 获取本地存储-收藏
 const getLocalStorageCollections = () => {
-  let tmp = localStorage.getItem("collections");
-  if (!tmp || tmp==='') { 
-    tmp = [];
-  } else{
-    tmp = tmp.split(',')
-  }
-  return tmp;
-
+    let tmp = JSON.parse(localStorage.getItem("collections")) 
+    if (!tmp)  return [];
+    return tmp.products_id
 }
+// 获取本地存储-购物车
 const getLocalStorageCart = () => {
-
-    let tmp = localStorage.getItem("cart");
-
-    if (!tmp || tmp==='') { 
-        return [];
-    } else{
-        return tmp.split(',')
-    }
+    let tmp = JSON.parse(localStorage.getItem("cart")) 
+    if (!tmp)  return [];
+    return tmp.products_id
 }
-
+// 重置本地存储-收藏
 const changeLocalStorageCollections = arr => {
-  let tmp = arr.join();
-  localStorage.setItem("collections",tmp);
+  localStorage.setItem("collections", JSON.stringify({"products_id":arr}));
 }
-
-
+// 重置本地存储-购物车
 const changeLocalStorageCart = (arr) => {
-    localStorage.setItem("cart", arr.join(','));
+    localStorage.setItem("cart", JSON.stringify({"products_id":arr}));
 }
 
 export {

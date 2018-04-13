@@ -1,31 +1,18 @@
 <template>
   <div id="app">
 
-    <!-- 路由出口 -->
-    <!-- 路由匹配到的组件将渲染在这里 -->
     <transition>
-      <keep-alive>
-        <!-- 保留组件状态或避免重新渲染。 -->
-        <router-view v-if="$route.meta.keepAlive"></router-view>
+      <keep-alive  :include="['home','types','account']"> <!-- 保留组件状态或避免重新渲染。 -->
+        <router-view><!-- 路由匹配到的组件将渲染在这里 --></router-view> 
       </keep-alive>
     </transition>
-
-    <transition>
-      <router-view v-if="!$route.meta.keepAlive"></router-view>
-    </transition>
-    <!-- <Navigation class="fixed_bottom"></Navigation> -->
 
   </div>
 </template>
 
 <script>
-  import {
-    mapState,
-    mapGetters
-  } from 'vuex'
   export default {
     name: 'app', // 允许组件模板递归地调用自身。便于调试,只有作为组件选项时起作用。
-
     /** 数据 **/
     data() {
       // 类型：Object | Function
@@ -54,7 +41,6 @@
     computed: {
       // 计算属性将被混入到 Vue 实例中。所有 getter 和 setter 的 this 上下文自动地绑定为 Vue 实例。
       // 注意如果你为一个计算属性使用了箭头函数，则 this 不会指向这个组件的实例，不过你仍然可以将其实例作为函数的第一个参数来访问。
-
     },
     methods: {
       // methods 将被混入到 Vue 实例中。
@@ -67,7 +53,7 @@
     watch: {
       // 一个对象，键是需要观察的表达式，值是对应回调函数。值也可以是方法名，或者包含选项的对象。
       // Vue 实例将会在实例化时调用 $watch()，遍历 watch 对象的每一个属性。
-      a: function (val, oldVal) {
+      height: function (val, oldVal) {
         console.log('new: %s, old: %s', val, oldVal)
       },
     },

@@ -8,7 +8,7 @@ export const getRecommend = function (params) {
     });
 }
 
-export const getProductsByIds = function(params){
+export const getProductsById = function(params){
     return _post({
         data: params,
         url:"/get_products_by_ids"
