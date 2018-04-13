@@ -2,20 +2,21 @@
   <div id="cart">
 
     <TitleBar></TitleBar>
+
     <!-- 非空车 -->
     <ul class="cart_full" v-if="cartProductsData && cartProductsData.length>0">
 
-        <div class="cart_tip">
+      <div class="cart_tip">
         <p>当前购物车包含 {{ store_cart.length }} 件商品 </p>
         <p v-on:click="handlerEdit()">
-            <span v-if="isEdit">完成</span>
-            <span v-else>编辑</span>
+          <span v-if="isEdit">完成</span>
+          <span v-else>编辑</span>
         </p>
-        </div>
+      </div>
       <el-checkbox-group v-model="selectProduct" @change="handleSelectProductChange">
         <li class="cart_list" v-for="(item, index) in cartProductsData" :key="index">
           <div>
-            <el-checkbox :label="index+1"></el-checkbox>
+            <el-checkbox :label="index"></el-checkbox>
           </div>
           <div>
             <img src="https://oss.static.nubia.cn/pic/150777823783.jpg" alt="">
@@ -37,16 +38,32 @@
     </ul>
     <!-- 空车 -->
     <ul class="cart_empty" v-else>
-      <li> <i class="iconfont icon-cart"></i> </li>
+      <li>
+        <i class="iconfont icon-cart"></i>
+      </li>
       <li>购物车还是空的</li>
       <li>
         <router-link to="/">
-            <el-button type="danger" plain>去购物</el-button>
+          <el-button type="danger" plain>去购物</el-button>
         </router-link>
       </li>
     </ul>
 
     <LayoutTrain :LayoutTrainData="recommendData"></LayoutTrain>
+
+    <!-- <Checkout></Checkout> -->
+    <ul class="checkout" v-show="isShowHowMuch">
+      <li>
+        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+      </li>
+      <li>
+        <p>合计：￥{{howMuch}}</p>
+        <p><small>优惠：￥0.00</small></p>
+      </li>
+      <li>
+        <el-button size="mini" round type="danger">结算</el-button>
+      </li>
+    </ul>
 
     <v-navigation></v-navigation>
   </div>
@@ -72,10 +89,14 @@
     },
     data: function () {
       return {
-        recommendData: null,
-        cartProductsData: null,
-        selectProduct: [],
-        isEdit: false
+          isShowHowMuch:true, // 是否显示价格栏
+          howMuch:'0.00', // 多少钱
+        checkAll: false, // 勾选全部产品
+        isIndeterminate: true, // checkbox 的不确定状态
+        recommendData: null, // 推荐数据
+        cartProductsData: null, // 购物车数据
+        selectProduct: [], // 勾选产品数据
+        isEdit: false ,// 产品编辑状态
       }
     },
     created() {
@@ -95,29 +116,88 @@
         let _this = this;
         // 获取推荐数据
         getRecommend()
-          .then(({data}) =>_this.recommendData = data)
+          .then(({
+            data
+          }) => _this.recommendData = data)
           .catch(error => console.log(error));
         // 获取购物车数据
-        getProductsById({ 'products_id': this.store_cart })
-          .then(({data}) => _this.cartProductsData = data )
+        getProductsById({
+            'products_id': this.store_cart
+          })
+          .then(({
+            data
+          }) => _this.cartProductsData = data)
           .catch(error => console.log(error))
       },
       handlerEdit: function () {
         this.isEdit = !this.isEdit;
       },
       countMinus: function (product_id) {
-        this.deletCart(product_id);// 更新store
+        this.deletCart(product_id); // 更新store
         this.init();
       },
       countPlus: function (product_id) {
-        this.addCart(product_id);// 更新store
+        this.addCart(product_id); // 更新store
         this.init();
       },
+      // 当用户勾选单个产品
       handleSelectProductChange(value) {
-        console.log(value)
+          let _this = this;
+        this.checkAll = value.length === this.cartProductsData.length;
+        this.isIndeterminate = value.length > 0 && value.length < this.cartProductsData.length;
+          // 计算价格
+          if(value.length>0) {
+            let counter = 0;
+            value.forEach(function(i){
+                counter+= (_this.cartProductsData[i].price * _this.cartProductsData[i].count)
+            })
+            this.howMuch=counter;
+          }else{
+            this.howMuch='0.00';
+          }
+      },
+      // 当用户勾选全选
+      handleCheckAllChange(val) {
+          let _this = this;
+          // 假设全选变量
+        let fullSelectProduct = [];
+        // 根据购物车里的数据填充全选变量
+        this.cartProductsData.forEach((item, index) => fullSelectProduct.push(index));
+        // 用户是否勾选了全选
+        this.selectProduct = val ? fullSelectProduct : [];
+        // 不确定状态
+        this.isIndeterminate = false;
+        //  计算价格
+        if(val) {
+            let counter = 0;
+            fullSelectProduct.forEach(function(i){
+                counter+= (_this.cartProductsData[i].price * _this.cartProductsData[i].count)
+            })
+            this.howMuch=counter;
+          }else{
+            this.howMuch='0.00';
+          }
+      },
+    },
+    watch: {
+      isEdit: function (val, oldVal) {
+          // 进入编辑
+          if(val===true&&oldVal===false){
+
+            this.isShowHowMuch = false
+            this.handleSelectProductChange([])
+            this.handleCheckAllChange(false)
+          }else{ // 退出编辑
+
+            this.isShowHowMuch = true
+            this.handleSelectProductChange([])
+            this.handleCheckAllChange(false)
+          }
+         
       }
     }
   }
+
 </script>
 <style lang="scss">
   @import '../assets/css/config.scss';
@@ -125,6 +205,28 @@
     display: block;
     margin-bottom: 50px;
 
+  }
+
+  .checkout {
+    position: fixed;
+    bottom: 50px;
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    background-color: white;
+    border-top: 1px solid $cloud;
+    justify-content: space-between;
+    >li {
+      padding: 5px 20px;
+      display: inline-flex;
+      flex-flow: column nowrap;
+      justify-content: center;
+      &:nth-child(2){
+      text-align: right;
+        flex-grow: 1;
+
+      }
+    }
   }
 
   .cart_tip {
@@ -140,6 +242,7 @@
     .cart_list {
       display: flex;
       flex-flow: row nowrap;
+            justify-content: space-around;
       margin-bottom: 10px;
       background-color: white;
       .icon_border {
@@ -155,29 +258,20 @@
         border-bottom: 1px solid $cloud;
       }
       >div {
-        display: inline-flex;
-        flex-flow: column wrap;
-        justify-content: center;
-        padding: 10px 5px;
+        padding: 5px;
         font-size: 14px;
+        display: inline-flex;
+        flex-flow: column nowrap;
+        justify-content: center;
         >.el-radio {
           width: 100%;
           text-align: center;
         }
         &:nth-child(1) {
-          width: 10%;
-          flex-grow: 0;
+            padding-left: 20px;
         }
         &:nth-child(2) {
           width: 20%;
-          flex-grow: 0;
-        }
-        &:nth-child(3) {
-          width: 45%;
-          flex-grow: 0;
-        }
-        &:nth-child(4) {
-          width: 15%;
           flex-grow: 0;
         }
       }

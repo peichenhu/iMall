@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-
 // 首页
 import Index from '../pages/index'
 // 分类
@@ -15,17 +14,36 @@ import Account from '../pages/account'
 import Product from '../pages/product'
 
 // 2. 定义路由
-const routes = [
-    { path: '/', name:'home', component: Index , meta: {keepAlive: true}},
-    { path: '/types', name:'types', component: Types , meta: {keepAlive: true}},
-    { path: '/account', name:'account', component: Account , meta: {keepAlive: true}},
+const routes = [{
+    path: '/',
+    name: 'home',
+    component: Index
+  },
+  {
+    path: '/types',
+    name: 'types',
+    component: Types
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: Account
+  },
 
-    { path: '/cart', name:'cart', component: Cart , meta: {keepAlive: false}},
-    { path: '/product/:id/', name:'product',component: Product , meta: {keepAlive: false}}
+  {
+    path: '/cart',
+    name: 'cart',
+    component: Cart
+  },
+  {
+    path: '/product/:id/',
+    name: 'product',
+    component: Product
+  }
 ]
 
 // 3. 创建 router 实例，然后传 `routes` 配置
 export default new VueRouter({
-    // mode: 'history',
-    routes // （缩写）相当于 routes: routes
+  // mode: 'history',
+  routes // （缩写）相当于 routes: routes
 })
