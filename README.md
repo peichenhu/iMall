@@ -4,14 +4,19 @@
 
 ## 构建指令
 
-``` bash
-# 安装依赖
-npm install
+``` js
+// 安装依赖
+npm i
 
-# 本地服务器热加载： localhost:8080
+// 构建前配置 webpack 本地 输出目录
+
+path: path.resolve(__dirname, './dist'),// 项目根目录
+publicPath: '/', // 资源引用路径
+
+// 本地服务器热加载： localhost:5050
 npm run dev
 
-# 打包构建产品级压缩代码
+// 打包构建产品级压缩代码
 npm run build
 ```
 
