@@ -34,7 +34,7 @@ export default {
         text-align: center;
       .goods_img {
         display: flex;
-        align-items: self-start;
+        align-items: flex-start;
         margin: 0 auto;
         border-radius: 50%;
         padding: 5px;

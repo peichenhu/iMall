@@ -19,7 +19,7 @@ const getLocalStorageCart = () => {
     return tmp.products_id
 }
 // 重置本地存储-收藏
-const changeLocalStorageCollections = arr => {
+const changeLocalStorageCollections = (arr) => {
   localStorage.setItem("collections", JSON.stringify({"products_id":arr}));
 }
 // 重置本地存储-购物车

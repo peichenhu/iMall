@@ -1,6 +1,6 @@
 export const product_v18_1 = {
   "id": 8881,
-  "title": "Nubia V18 全面屏",
+  "title": "Nubia V18",
   "model": "v18",
   "color": "曜石黑",
   "storage": "4GB+64GB",
@@ -36,7 +36,7 @@ export const product_v18_1 = {
 
 export const product_v18_2 = {
   "id": 8882,
-  "title": "Nubia V18 全面屏",
+  "title": "Nubia V18",
   "model": "v18",
   "color": "极光蓝",
   "storage": "4GB+64GB",
@@ -66,7 +66,7 @@ export const product_v18_2 = {
 
 export const product_v18_3 = {
   "id": 8883,
-  "title": "Nubia V18 全面屏",
+  "title": "Nubia V18",
   "model": "v18",
   "color": "极光蓝",
   "storage": "6GB+64GB",
@@ -96,6 +96,7 @@ export const product_v18_3 = {
 
 export const product_z17_1 = {
   "id": 6661,
+  "title": "Nubia Z17",
   "model": "z17",
   "color": "星月白",
   "storage": "4GB+64GB",

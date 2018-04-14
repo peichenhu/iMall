@@ -16,13 +16,13 @@
       <el-checkbox-group v-model="selectProduct" @change="handleSelectProductChange">
         <li class="cart_list" v-for="(item, index) in cartProductsData" :key="index">
           <div>
-            <el-checkbox :label="index"></el-checkbox>
+            <el-checkbox :label="index" :disabled="isDissble"></el-checkbox>
           </div>
           <div>
             <img src="https://oss.static.nubia.cn/pic/150777823783.jpg" alt="">
           </div>
-          <div>{{item.title}}
-            <small>{{item.storage}}</small>
+          <div>{{item.title}} 
+            <small>{{item.color}}{{item.storage}}</small>
             <small v-if="isEdit">
               <i class="el-icon-minus icon_border" size="mini" @click="countMinus(item.id)"></i>
               <span class="product_count">{{item.count}}</span>
@@ -54,11 +54,13 @@
     <!-- <Checkout></Checkout> -->
     <ul class="checkout" v-show="isShowHowMuch">
       <li>
-        <el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-checkbox :disabled="isDissble" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
       </li>
       <li>
         <p>合计：￥{{howMuch}}</p>
-        <p><small>优惠：￥0.00</small></p>
+        <p>
+          <small>优惠：￥0.00</small>
+        </p>
       </li>
       <li>
         <el-button size="mini" round type="danger">结算</el-button>
@@ -89,14 +91,15 @@
     },
     data: function () {
       return {
-          isShowHowMuch:true, // 是否显示价格栏
-          howMuch:'0.00', // 多少钱
-        checkAll: false, // 勾选全部产品
-        isIndeterminate: true, // checkbox 的不确定状态
-        recommendData: null, // 推荐数据
+        isShowHowMuch: false,    // 是否显示价格栏
+        howMuch: '0.00',        // 多少钱
+        checkAll: false,        // 勾选全部产品
+        isIndeterminate: true,  // checkbox 的不确定状态
+        recommendData: null,    // 推荐数据
         cartProductsData: null, // 购物车数据
-        selectProduct: [], // 勾选产品数据
-        isEdit: false ,// 产品编辑状态
+        selectProduct: [],      // 勾选产品数据
+        isEdit: false,          // 产品编辑状态
+        isDissble:false
       }
     },
     created() {
@@ -142,24 +145,27 @@
       },
       // 当用户勾选单个产品
       handleSelectProductChange(value) {
-          let _this = this;
+        let _this = this;
         this.checkAll = value.length === this.cartProductsData.length;
         this.isIndeterminate = value.length > 0 && value.length < this.cartProductsData.length;
-          // 计算价格
-          if(value.length>0) {
-            let counter = 0;
-            value.forEach(function(i){
-                counter+= (_this.cartProductsData[i].price * _this.cartProductsData[i].count)
-            })
-            this.howMuch=counter;
-          }else{
-            this.howMuch='0.00';
-          }
+        // 计算价格
+        if (value.length > 0) {
+          let counter = 0;
+          value.forEach(function (i) {
+            counter += (_this.cartProductsData[i].price * _this.cartProductsData[i].count)
+          })
+          this.howMuch = counter;
+        } else {
+          this.howMuch = '0.00';
+        }
+        if(!this.isEdit){
+          this.isShowHowMuch = true
+        }
       },
       // 当用户勾选全选
       handleCheckAllChange(val) {
-          let _this = this;
-          // 假设全选变量
+        let _this = this;
+        // 假设全选变量
         let fullSelectProduct = [];
         // 根据购物车里的数据填充全选变量
         this.cartProductsData.forEach((item, index) => fullSelectProduct.push(index));
@@ -168,33 +174,41 @@
         // 不确定状态
         this.isIndeterminate = false;
         //  计算价格
-        if(val) {
-            let counter = 0;
-            fullSelectProduct.forEach(function(i){
-                counter+= (_this.cartProductsData[i].price * _this.cartProductsData[i].count)
-            })
-            this.howMuch=counter;
-          }else{
-            this.howMuch='0.00';
-          }
+        if (val) {
+          let counter = 0;
+          fullSelectProduct.forEach(function (i) {
+            counter += (_this.cartProductsData[i].price * _this.cartProductsData[i].count)
+          })
+          this.howMuch = counter;
+        } else {
+          this.howMuch = '0.00';
+        }
       },
     },
     watch: {
       isEdit: function (val, oldVal) {
-          // 进入编辑
-          if(val===true&&oldVal===false){
+        // 进入编辑
+        if (val === true && oldVal === false) {
 
-            this.isShowHowMuch = false
-            this.handleSelectProductChange([])
-            this.handleCheckAllChange(false)
-          }else{ // 退出编辑
+          this.isShowHowMuch = false
+          this.handleSelectProductChange([])
+          this.handleCheckAllChange(false)
+          this.isDissble=true
+        } else { // 退出编辑
 
-            this.isShowHowMuch = true
-            this.handleSelectProductChange([])
-            this.handleCheckAllChange(false)
-          }
-         
-      }
+          this.isDissble=false
+          this.isShowHowMuch = true
+          this.handleSelectProductChange([])
+          this.handleCheckAllChange(false)
+        }
+      },
+      cartProductsData: function (val, oldVal) {
+        // 进入编辑
+        if (!val && val.length===0) {
+          this.isShowHowMuch = false
+        }
+      },
+
     }
   }
 
@@ -221,8 +235,8 @@
       display: inline-flex;
       flex-flow: column nowrap;
       justify-content: center;
-      &:nth-child(2){
-      text-align: right;
+      &:nth-child(2) {
+        text-align: right;
         flex-grow: 1;
 
       }
@@ -242,7 +256,7 @@
     .cart_list {
       display: flex;
       flex-flow: row nowrap;
-            justify-content: space-around;
+      justify-content: space-around;
       margin-bottom: 10px;
       background-color: white;
       .icon_border {
@@ -268,7 +282,7 @@
           text-align: center;
         }
         &:nth-child(1) {
-            padding-left: 20px;
+          padding-left: 20px;
         }
         &:nth-child(2) {
           width: 20%;

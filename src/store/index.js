@@ -21,33 +21,25 @@ export default new Vuex.Store({
   mutations: {
     // 添加收藏
     addCollections(state, products_id) {
-      // 创建Set去重
-      let tmp = new Set(state.collections);
-      // 添加ID
-      tmp.add(products_id)
-      // 清空Store收藏
-      state.collections.length = 0;
-      // 赋值Store收藏
-      state.collections = Array.from(tmp);
+        
+      // 查找该ID,不存在添加，排序
+      if (!state.collections.some(i => i === products_id))  state.collections.push(products_id);
+      state.collections.sort();
       // 更新本地存储
       changeLocalStorageCollections(state.collections);
     },
     // 删除收藏
     deletCollections(state, products_id) {
-      // 创建Set去重
-      let tmp = new Set(state.collections);
-      // 删除ID
-      tmp.delete(products_id);
-      // 清空Store收藏
-      state.collections.length = 0;
-      // 赋值Store收藏
-      state.collections = Array.from(tmp);
+      // 查找该ID第一次出现的位置
+      let tmp_index = state.collections.findIndex(i => i === products_id)
+      // 如果存在，删除该id
+      if (tmp_index !== -1) state.collections.splice(tmp_index, 1);
       // 更新本地存储
       changeLocalStorageCollections(state.collections);
     },
     // 添加某一个到购物车
     addCart(state, product_id) {
-        // 添加ID
+      // 添加ID
       state.cart.push(product_id);
       // 简单排序，可选
       state.cart.sort();

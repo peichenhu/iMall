@@ -1,7 +1,7 @@
 <template>
-  <div id="product" v-if="products">
+  <div id="product" v-if="product">
     <!-- 返回状态栏 -->
-    <Backbar :title="products.title"></Backbar>
+    <Backbar :title="product.title"></Backbar>
     <!-- 底部状态栏 -->
     <el-row class="bottom_bar">
       <el-col :span="4">
@@ -15,10 +15,10 @@
       </el-col>
     </el-row>
     <!-- 轮播图组件 -->
-    <Carousel :CarouselData="CarouselData"></Carousel>
+    <Carousel :CarouselData="product.product_images"></Carousel>
     <!-- 产品简要 -->
     <el-row class="product_brief">
-      <p>{{products.title}} {{product.color}} {{product.storage}}</p>
+      <p>{{product.title}} {{product.color}} {{product.storage}}</p>
       <p>
         <small>{{product.sale}}</small>
       </p>
@@ -37,9 +37,9 @@
     <!-- 产品参数 颜色 -->
     <el-row class="product_parameter">
       <h3>颜色</h3>
-      <el-radio-group v-model="radioColor.choose" size="mini" @change="selectColor">
+      <el-radio-group v-model="radio_model_color.choose" size="mini" @change="handlerChangeColor">
         <!-- 循环输出所有颜色 -->
-        <el-radio border v-for="(item,index) in color" :key="index" :label="index">
+        <el-radio border v-for="(item,index) in color_arr" :key="index" :label="item">
           {{item}}
         </el-radio>
       </el-radio-group>
@@ -47,8 +47,8 @@
     <!-- 产品参数 规格 -->
     <el-row class="product_parameter">
       <h3>规格</h3>
-      <el-radio-group v-model="radioStorage.choose" size="mini" @change="selectStorage">
-        <el-radio border v-for="(item, index) in storage" :key="index" :label="index">
+      <el-radio-group v-model="radio_model_storage.choose" size="mini" @change="handlerChangeStorage">
+        <el-radio border v-for="(item, index) in storage_arr" :key="index" :label="item">
           {{item}}
         </el-radio>
       </el-radio-group>
@@ -60,7 +60,7 @@
     <el-row class="product_poster">
       <h3>概述</h3>
       <div>
-        <img v-for="(item, index) in products.products_poster" :key="index" :src="item" alt="Poster">
+        <img v-for="(item, index) in products_all.products_poster" :key="index" :src="item" alt="Poster">
       </div>
     </el-row>
 
@@ -89,30 +89,26 @@
     },
     data: function () {
       return {
-        CarouselData: null, // 某个产品焦点图
-        products: null, // 该型号产品的类型属性和产品列表
-        product_list: [], // 筛选后的同型号产品列表
-        product: null, // 某个产品
-        color: [], // 去重后的产品颜色表
-        storage: [], // 去重后的产品存储表
-        radioColor: {}, // 颜色单选按钮模型
-        radioStorage: {}, // 存储单选按钮模型
-        product_id: this.$route.params.id,
-        select_product: {
+        product_id: this.$route.params.id, // 初始化页面时产品ID（后期使用 product.id）
+        products_all: null, // 同类产品数据
+        products_some: [],  // 同参数产品数据
+        product: null,      // 当前产品数据
+        isCollections: false,      // 当前产品收藏数据
+        color_arr: [],              // 去重后的产品颜色表
+        storage_arr: [],            // 去重后的产品存储表
+        radio_model_color: {},      // 颜色单选按钮模型
+        radio_model_storage: {},    // 存储单选按钮模型
+        radio_change: {             // 单选配置事件监听
           color: null,
           storage: null
         }
       }
     },
     computed: {
-      ...mapState({
-        isCollections(state) {
-          return state.collections.includes(this.product_id)
-        }
-      }),
+      ...mapState(['collections']),
     },
     created() {
-      this.init()
+      this.init();
     },
     methods: {
       ...mapActions([
@@ -120,100 +116,80 @@
         'deletCollections',
         'addCart'
       ]),
+      refreshCollections:function(){
+          this.isCollections = this.collections.includes(this.product.id);
+      },
       init: function () {
         let _this = this;
-        let params = {
-          'product_id': this.$route.params.id
-        };
-
-        let tmp = new Set();
-        let tmp2 = new Set();
-        getProductById(params)
+        getProductById({'product_id': _this.product_id})
           .then(function (response) {
-            // 先存储完整数据
-            _this.products = response.data;
-            // 再拿出第一条数据作为默认
-            _this.product = response.data.products_specifications[0];
-            // 拿出第一条的焦点图
-            _this.CarouselData = _this.product.product_images;
-            // 拿出所得颜色(数组去重)
-            response.data.products_specifications.forEach(item => {
-              tmp.add(item.color);
-              tmp2.add(item.storage)
+            _this.products_all = response.data;
+            _this.products_some = _this.products_all.products_specifications;
+            _this.product = _this.products_some.find(i=>i.id == _this.product_id);
+        
+            // 拿出当前 id 对应的数据 + 拿出所得颜色(数组去重)
+            let tmp_color = new Set();
+            let tmp_storage = new Set();
+            _this.products_some.forEach(item => {
+              tmp_color.add(item.color);
+              tmp_storage.add(item.storage)
             })
-            // 同上,拿出所有存储格式(数组去重)
-            _this.storage = Array.from(tmp2);
-            _this.color = Array.from(tmp);
+            // 颜色存储(数组去重)
+            _this.color_arr = Array.from(tmp_color);
+            _this.storage_arr = Array.from(tmp_storage);
+            // 依据当前产品 添加颜色存储默认勾选
+            _this.$set(_this.radio_model_color, 'choose', _this.product.color);
+            _this.$set(_this.radio_model_storage, 'choose', _this.product.storage);
+
+            _this.refreshCollections()
           })
           .catch(function (error) {
             console.log(error);
           });
       },
-      selectColor: function (value) {
-        // 根据 value 获取 符合条件的 product
+      // 选择颜色
+      handlerChangeColor: function (value) {
         let _this = this;
-        let tmp = new Set();
-        let product_list = [];
-        this.products.products_specifications.forEach(function (item) {
-          if (item.color === _this.color[value]) {
-            // 符合条件的拿出来去重
-            tmp.add(item.storage);
-            product_list.push(item)
-          }
+        // 根据 value 重新生成 可用的存储列表，并默认勾选第一个
+        let tmp_storage = new Set(); // 用于去重
+        this.products_all.products_specifications.forEach(function (item) {
+            if( item.color === value ){
+                tmp_storage.add(item.storage);
+            }
         })
-        // 更新存储选项列表
-        this.storage = Array.from(tmp);
-        // 更新当前产品信息
-        this.product = product_list[0];
-        // 默认存储选择第一个
-        this.$set(this.radioStorage, 'choose', 0);
-
-        this.select_product.storage = this.storage[0];
-        this.select_product.color = this.color[value];
-        console.log('改变之后的值是:' + JSON.stringify(this.select_product))
-
+        this.storage_arr = Array.from(tmp_storage);
+        this.$set(this.radio_model_storage, 'choose', this.storage_arr[0]);
+        this.product = this.products_all.products_specifications.find( i=> i.color===value&& i.storage===this.storage_arr[0])
+        
+        this.refreshCollections()
       },
-      selectStorage: function (value) {
-        // 根据 value 获取 符合条件的 product
+      // 选择存储
+      handlerChangeStorage: function (value) {
         let _this = this;
-        let tmp = new Set();
-        let product_list = [];
-        this.products.products_specifications.forEach(function (item) {
-          if (item.storage === _this.storage[value]) {
-            // 符合条件的拿出来去重
-            tmp.add(item.color);
-            product_list.push(item)
-          }
+        // 根据 storage 重新生成 可用的 color 列表，并默认勾选第一个
+        let tmp_color = new Set(); // 用于去重
+        this.products_all.products_specifications.forEach(function (item) {
+            if( item.storage === value ){
+                tmp_color.add(item.color);
+            }
         })
-        // 更新存储选项列表
-        this.color = Array.from(tmp);
-        // 更新当前产品信息
-        this.product = product_list[0];
-        // 默认存储选择第一个
-        this.$set(this.radioColor, 'choose', 0);
+        this.color_arr = Array.from(tmp_color);
+        this.$set(this.radio_model_color, 'choose', this.color_arr[0]);
+        this.product = this.products_all.products_specifications.find( i=> i.color===this.color_arr[0]&& i.storage===value)
 
-        this.select_product.color = this.color[0];
-        this.select_product.storage = this.storage[value];
-        console.log('改变之后的值是:' + JSON.stringify(this.select_product))
+        this.refreshCollections()
       },
+      // 选择收藏
       changeCollections: function () {
         if (this.isCollections === true) {
-          this.deletCollections(this.product_id)
+          this.deletCollections(this.product.id)
         } else {
-          this.addCollections(this.product_id)
+          this.addCollections(this.product.id)
         }
+        this.refreshCollections()
       },
       addToCart: function () {
-        if (!this.select_product.color || !this.select_product.storage) {
-          alert("选择先一款产品!")
-        } else {
-          let color = this.select_product.color;
-          let storage = this.select_product.storage;
-          let product = this.products.products_specifications.find(item => item.color === color && item.storage ===
-            storage)
-          console.log(product.id)
-          this.addCart(product.id)
-        }
+          this.addCart(this.product.id)
       }
     }
   }
