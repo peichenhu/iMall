@@ -135,7 +135,8 @@ export default {
         wap_content_params = document.querySelector(".wap_content_params");
       });
       this.scroll.on("scroll", function(ops) {
-        if (Math.abs(ops.y) > wap_content.offsetTop) {
+          console.log(wap_content_title.offsetTop)
+        if (Math.abs(ops.y) > wap_content_title.offsetTop) {
           if (fix_content_title.style.display !== "flex")
             fix_content_title.style.display = "flex";
         } else {
@@ -184,8 +185,9 @@ export default {
     },
     init: function() {
       let _this = this;
-      // let _path = "/demo/iMall/html"; // iHexo
-      let _path = "/html"; // node
+    //   let _path = "/demo/iMall/html"; // iHexo
+    //   let _path = "/iMall/html"; // cooding
+      let _path = "/html"; // cooding
       getProductById({
         product_id: _this.product_id
       })

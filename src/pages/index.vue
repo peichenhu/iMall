@@ -1,24 +1,27 @@
 <template>
-  <div id="index">
+  <better-scroll>
     <!-- 搜索消息栏组件 -->
-    <topBar></topBar>
-    <!-- 轮播图组件 -->
-    <Carousel :CarouselData="CarouselData"></Carousel>
-    <!-- B型组件 -->
-    <LayoutB :layoutBData="layoutBData"></LayoutB>
-    <!-- 双列自增布局 -->
-    <LayoutTrain :LayoutTrainData="LayoutTrainData"></LayoutTrain>
-    <!-- 全局组件 -->
-    <v-navigation></v-navigation>
-  </div>
+    <top-bar slot="header"></top-bar>
+
+    <div id="index" slot="section">
+      <!-- 轮播图组件 -->
+      <carousel :CarouselData="CarouselData"></carousel>
+      <!-- B型组件 -->
+      <LayoutB :layoutBData="layoutBData"></LayoutB>
+      <!-- 双列自增布局 -->
+      <LayoutTrain :LayoutTrainData="LayoutTrainData"></LayoutTrain>
+    </div>
+
+    <!-- 导航组件 -->
+    <navigation slot="footer"></navigation>
+
+  </better-scroll>
 </template>
 <script>
   import {
     getIndexData
   } from "../api/index"
 
-  import TopBar from '../components/topBar'
-  import Carousel from '../components/carousel'
   import LayoutB from '../components/layoutB'
   import LayoutTrain from '../components/layoutTrain'
 
@@ -32,8 +35,6 @@
       }
     },
     components: {
-      TopBar,
-      Carousel,
       LayoutB,
       LayoutTrain,
     },
@@ -60,8 +61,6 @@
 
 </script>
 <style lang="scss" scoped>
-  #index {
-    padding: 50px 0;
-  }
+
 
 </style>

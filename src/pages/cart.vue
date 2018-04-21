@@ -1,75 +1,73 @@
 <template>
-  <div id="cart">
+  <better-scroll>
+    <TitleBar slot="header"></TitleBar>
+    <div id="cart" slot="section">
+      <!-- 非空车 -->
+      <ul class="cart_full" v-if="cartProductsData && cartProductsData.length>0">
 
-    <TitleBar></TitleBar>
-
-    <!-- 非空车 -->
-    <ul class="cart_full" v-if="cartProductsData && cartProductsData.length>0">
-
-      <div class="cart_tip">
-        <p>当前购物车包含 {{ store_cart.length }} 件商品 </p>
-        <p v-on:click="handlerEdit()">
-          <span v-if="isEdit">完成</span>
-          <span v-else>编辑</span>
-        </p>
-      </div>
-      <el-checkbox-group v-model="selectProduct" @change="handleSelectProductChange">
-        <li class="cart_list" v-for="(item, index) in cartProductsData" :key="index">
-          <div>
-            <el-checkbox :label="index" :disabled="isDissble"></el-checkbox>
-          </div>
-          <div>
-            <img src="https://oss.static.nubia.cn/pic/150777823783.jpg" alt="">
-          </div>
-          <div>{{item.title}} 
-            <small>{{item.color}}{{item.storage}}</small>
-            <small v-if="isEdit">
-              <i class="el-icon-minus icon_border" size="mini" @click="countMinus(item.id)"></i>
-              <span class="product_count">{{item.count}}</span>
-              <i class="el-icon-plus icon_border" size="mini" @click="countPlus(item.id)"></i>
-            </small>
-            <small v-else>数量: {{item.count}}</small>
-          </div>
-          <div>
-            <small>售价：￥{{item.price}}</small>
-          </div>
+        <div class="cart_tip">
+          <p>当前购物车包含 {{ store_cart.length }} 件商品 </p>
+          <p v-on:click="handlerEdit()">
+            <span v-if="isEdit">完成</span>
+            <span v-else>编辑</span>
+          </p>
+        </div>
+        <el-checkbox-group v-model="selectProduct" @change="handleSelectProductChange">
+          <li class="cart_list" v-for="(item, index) in cartProductsData" :key="index">
+            <div>
+              <el-checkbox :label="index" :disabled="isDissble"></el-checkbox>
+            </div>
+            <div>
+              <img src="https://oss.static.nubia.cn/pic/150777823783.jpg" alt="">
+            </div>
+            <div>{{item.title}}
+              <small>{{item.color}}{{item.storage}}</small>
+              <small v-if="isEdit">
+                <i class="el-icon-minus icon_border" size="mini" @click="countMinus(item.id)"></i>
+                <span class="product_count">{{item.count}}</span>
+                <i class="el-icon-plus icon_border" size="mini" @click="countPlus(item.id)"></i>
+              </small>
+              <small v-else>数量: {{item.count}}</small>
+            </div>
+            <div>
+              <small>售价：￥{{item.price}}</small>
+            </div>
+          </li>
+        </el-checkbox-group>
+      </ul>
+      <!-- 空车 -->
+      <ul class="cart_empty" v-else>
+        <li>
+          <i class="iconfont icon-cart"></i>
         </li>
-      </el-checkbox-group>
-    </ul>
-    <!-- 空车 -->
-    <ul class="cart_empty" v-else>
-      <li>
-        <i class="iconfont icon-cart"></i>
-      </li>
-      <li>购物车还是空的</li>
-      <li>
-        <router-link to="/">
-          <el-button type="danger" plain>去购物</el-button>
-        </router-link>
-      </li>
-    </ul>
-
-    <LayoutTrain :LayoutTrainData="recommendData"></LayoutTrain>
-
-    <!-- <Checkout></Checkout> -->
-    <ul class="checkout" v-show="isShowHowMuch">
-      <li>
-        <el-checkbox :disabled="isDissble" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-      </li>
-      <li>
-        <p>合计：￥{{howMuch}}</p>
-        <p>
-          <small>优惠：￥0.00</small>
-        </p>
-      </li>
-      <li>
-        <el-button size="mini" round type="danger">结算</el-button>
-      </li>
-    </ul>
-
-    <v-navigation></v-navigation>
-  </div>
-
+        <li>购物车还是空的</li>
+        <li>
+          <router-link to="/">
+            <el-button type="danger" plain>去购物</el-button>
+          </router-link>
+        </li>
+      </ul>
+      <!-- 推荐 -->
+      <LayoutTrain :LayoutTrainData="recommendData"></LayoutTrain>
+    </div>
+    <template slot="footer">
+      <!-- <Checkout></Checkout> -->
+      <ul class="checkout" v-show="isShowHowMuch">
+        <li>
+          <el-checkbox :disabled="isDissble" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+        </li>
+        <li>
+          <p>合计：￥{{howMuch}}</p>
+          <p> <small>优惠：￥0.00</small> </p>
+        </li>
+        <li>
+          <el-button size="mini" round type="danger">结算</el-button>
+        </li>
+      </ul>
+      <!-- 导航组件 -->
+      <navigation></navigation>
+    </template>
+  </better-scroll>
 </template>
 <script>
   import TitleBar from "../components/titleBar"
@@ -91,15 +89,15 @@
     },
     data: function () {
       return {
-        isShowHowMuch: false,    // 是否显示价格栏
-        howMuch: '0.00',        // 多少钱
-        checkAll: false,        // 勾选全部产品
-        isIndeterminate: true,  // checkbox 的不确定状态
-        recommendData: null,    // 推荐数据
+        isShowHowMuch: false, // 是否显示价格栏
+        howMuch: '0.00', // 多少钱
+        checkAll: false, // 勾选全部产品
+        isIndeterminate: true, // checkbox 的不确定状态
+        recommendData: null, // 推荐数据
         cartProductsData: null, // 购物车数据
-        selectProduct: [],      // 勾选产品数据
-        isEdit: false,          // 产品编辑状态
-        isDissble:false
+        selectProduct: [], // 勾选产品数据
+        isEdit: false, // 产品编辑状态
+        isDissble: false
       }
     },
     created() {
@@ -158,7 +156,7 @@
         } else {
           this.howMuch = '0.00';
         }
-        if(!this.isEdit){
+        if (!this.isEdit) {
           this.isShowHowMuch = true
         }
       },
@@ -193,10 +191,10 @@
           this.isShowHowMuch = false
           this.handleSelectProductChange([])
           this.handleCheckAllChange(false)
-          this.isDissble=true
+          this.isDissble = true
         } else { // 退出编辑
 
-          this.isDissble=false
+          this.isDissble = false
           this.isShowHowMuch = true
           this.handleSelectProductChange([])
           this.handleCheckAllChange(false)
@@ -204,7 +202,7 @@
       },
       cartProductsData: function (val, oldVal) {
         // 进入编辑
-        if (!val && val.length===0) {
+        if (!val && val.length === 0) {
           this.isShowHowMuch = false
         }
       },
@@ -218,7 +216,6 @@
   #cart {
     display: block;
     margin-bottom: 50px;
-
   }
 
   .checkout {
@@ -312,11 +309,8 @@
 
 </style>
 <style lang="scss">
-  #cart {
-    .el-checkbox__label {
-      display: none;
-    }
-
+  #cart .el-checkbox__label {
+    display: none;
   }
 
 </style>

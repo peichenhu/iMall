@@ -1,6 +1,6 @@
 <template>
 
-    <v-navigation></v-navigation>
+    <navigation></navigation>
 </template>
 <script>
   export default {

@@ -10,7 +10,14 @@ import './assets/css/iconfont.css';
 
 //全局注册组件
 import Navigation from './components/navigation'
-Vue.component('v-navigation', Navigation);
+import BetterScroll from './components/betterScroll'
+import TopBar from './components/topBar'
+import Carousel from './components/carousel'
+
+Vue.component('top-bar', TopBar);
+Vue.component('carousel', Carousel);
+Vue.component('navigation', Navigation);
+Vue.component('better-scroll', BetterScroll);
 
 // 模拟数据
 import './mock'

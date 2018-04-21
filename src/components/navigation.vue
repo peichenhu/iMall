@@ -1,7 +1,6 @@
 <template>
   <!-- 旅游导航条 -->
-  <nav class="fixed_bottom">
-    <el-row :gutter="20">
+    <el-row :gutter="0">
       <el-col :span="6">
         <router-link to="/">
           <div class="grid-content bg-purple nav_btn">
@@ -42,7 +41,6 @@
 
       </el-col>
     </el-row>
-  </nav>
 </template>
 <script>
   export default {
@@ -66,10 +64,6 @@
 
   .el-row {
     background-color: $snow;
-  }
-
-  nav {
-    background: gray;
     border-top: 1px solid $snow/1.05;
   }
 

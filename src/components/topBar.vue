@@ -1,7 +1,7 @@
 <template>
   
     <!-- 搜索消息栏 -->
-    <el-row class="index_top_bar fixed_top">
+    <el-row class="top_bar border_bottom">
       <!--搜索-->
       <div class="top_search">
         <el-input size="mini" placeholder="请输入内容" prefix-icon="el-icon-search">
@@ -22,11 +22,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 
-  .index_top_bar {
+  .top_bar {
     background-color: white;
     display: flex;
     flex-direction: row;
-
     margin-top: 0;
     >div {
       width: 30px;

@@ -12,6 +12,8 @@ import Cart from '../pages/cart'
 import Account from '../pages/account'
 // 产品
 import Product from '../pages/product'
+// 注册
+import Register from '../pages/register'
 
 // 2. 定义路由
 const routes = [{
@@ -39,6 +41,11 @@ const routes = [{
     path: '/product/:id/',
     name: 'product',
     component: Product
+  },
+  {
+    path: '/register',
+    name: 'register',
+    component: Register
   }
 ]
 

@@ -1,11 +1,17 @@
 <template>
-  <div id="types">
-    <TopBar class="fixed_top"></TopBar>
-    <hr>
-    <h3 class="bg_white">手机</h3>
-    <InlineBox :InlineBoxData="TypesPhoneData" :InlineBoxCount=4></InlineBox>
-    <v-navigation></v-navigation>
-  </div>
+  <better-scroll>
+    <!-- 搜索消息栏组件 -->
+    <top-bar slot="header"></top-bar>
+
+    <div id="types" slot="section">
+        <h3 class="bg_white border_bottom">手机</h3>
+        <InlineBox :InlineBoxData="TypesPhoneData" :InlineBoxCount=4></InlineBox>
+        
+    </div>
+    <!-- 导航组件 -->
+    <navigation slot="footer"></navigation>
+  </better-scroll>
+
 </template>
 
 <script>
@@ -47,14 +53,7 @@
 </script>
 
 <style lang="scss" scoped>
-
-    
-#types{
-  margin-top: 50px;
-  margin-bottom: 50px;
   h3{
     text-indent: 10px;
   }
-}
-
 </style>
