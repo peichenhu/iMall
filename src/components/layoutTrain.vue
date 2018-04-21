@@ -4,8 +4,8 @@
 
     <h3 class="bg_white color_ink">{{LayoutTrainData.title}} </h3>
     <div class="recommend">
-      <router-link :to="{ name: 'product', params: { id: LayoutTrainData.recommend.id }}">
-        <img :src="LayoutTrainData.recommend.image_url" :alt="LayoutTrainData.recommend.title">
+      <router-link :to="{ name: 'product', params: { id: LayoutTrainData.recommend_product_id }}">
+        <img :src="LayoutTrainData.recommend_product_image" :alt="LayoutTrainData.recommend_product_title">
       </router-link>
     </div>
     <ul>
@@ -13,11 +13,11 @@
       <router-link :to="{ name: 'product', params: { id: item.id }}">
 
         <p>
-          <img :src="item.product_images[0].image_url" :alt="item.title">
+          <img :src="item.product_images[0]" :alt="item.title">
         </p>
         <p>
-          <span>{{item.title}}</span>
-          <span v-if="item.sale!==''">{{item.sale}}</span>
+          <span>{{item.model}} {{item.storage}}</span>
+          <!-- <span v-if="item.sale!==''">{{item.sale}}</span> -->
           <span>{{item.price+"元"}}
             <small v-if="item.original_price!==''">
               <del> {{item.original_price+"元"}}</del>

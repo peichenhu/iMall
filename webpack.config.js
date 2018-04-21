@@ -15,11 +15,11 @@ module.exports = {
     // path: path.resolve(__dirname, '../iHexo/source/demo/iMall'), // 部署到iHexo
     // publicPath: '/demo/iMall/',// 部署到iHexo
     path: path.resolve(__dirname, './dist'),// 部署到 nodejs
-    publicPath: '/',// 部署到 nodejs 
+    publicPath: '/',// 部署到 nodejs + Laragon
     filename: 'build.js?[hash]',
     chunkFilename: '[id].[hash].js'
   },
-  
+
   resolve: {
     extensions: ['.js', '.vue', '.json'],
     alias: {
@@ -115,13 +115,13 @@ module.exports = {
       title: 'shopping',
     }),
     // copy custom static assets
-    // new CopyWebpackPlugin([{
-    //   from: path.resolve(__dirname, './static'),
-    //   to: path.resolve(__dirname, './dist'),
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, './static'),
+      to: path.resolve(__dirname, './dist'),
     //   to: path.resolve(__dirname, '../iHexo/source/demo/imall'),
-    // //   to: path.resolve(__dirname, '../../laragon/www/imall'),
-    //   ignore: ['.*']
-    // }]),
+    //   to: path.resolve(__dirname, '../../laragon/www/imall'),
+      ignore: ['.*']
+    }]),
 
     new FriendlyErrorsPlugin(),
   ],
@@ -135,12 +135,25 @@ module.exports = {
     historyApiFallback: true,
     noInfo: true,
     overlay: true,
-    port:5050
+    port:5050,
+    proxy:{
+        '/nubia': {
+            target: 'http://m.nubia.com',
+            changeOrigin: true,
+            pathRewrite: {'^/nubia': ''} 
+        },
+        '/oss': {
+            target: 'https://oss.static.nubia.cn',
+            changeOrigin: true,
+            pathRewrite: {'^/oss': ''} 
+        }
+    }
   },
   performance: {
     hints: false
   },
-  devtool: '#eval-source-map'
+  devtool: 'cheap-source-map	'
+//   devtool: '#eval-source-map'
 }
 
 if (process.env.NODE_ENV === 'production') {

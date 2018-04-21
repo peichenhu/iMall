@@ -5,7 +5,7 @@
 
       <router-link :to="{ name: 'product', params: { id: item.products_specifications[0].id }}">
         <p class="goods_img">
-            <img :src="item.products_image" :alt="item.title">
+            <img :src="item.products_specifications[0].product_images[0]" :alt="item.title">
         </p>
         <p class="goods_title"> {{item.title}} </p>
       </router-link>

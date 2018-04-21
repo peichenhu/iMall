@@ -31,14 +31,15 @@
     methods:{
         
       goback: function () {
-        window.history.go(-1)
+        // window.history.go(-1)
+        this.$router.back();
       },
     }
   }
 
 </script>
 <style lang="scss" scoped>
-  @import '../assets/css/config.scss';
+  @import '../../assets/css/config.scss';
   #backbar {
     position: fixed;
     top: 0;

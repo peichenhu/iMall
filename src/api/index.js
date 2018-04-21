@@ -1,5 +1,5 @@
 // index
-import { _get, _post} from './config'
+import { _get, _post } from "./config";
 
 export const getIndexData = (data) => {
     let req = {
@@ -8,5 +8,3 @@ export const getIndexData = (data) => {
     };
     return _get(req);
 }
-
-

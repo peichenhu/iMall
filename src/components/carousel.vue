@@ -4,11 +4,14 @@
 
     <swiper-slide v-for="item in CarouselData" :key="item.index">
 
-      <router-link :to="{ name: 'product', params: { id: item.products_id }}" v-if="item.products_id">
+      <router-link :to="{ name: 'product', params: { id: item.products_id }}" v-if="item.products_id&&item.products_id!==null">
+        <img :src="item.image_url" :alt="item.title">
+      </router-link>
+      <router-link :to="{ name: 'product', params: { id: item.page_link }}" v-else-if="item.page_link&&item.page_link!==null">
         <img :src="item.image_url" :alt="item.title">
       </router-link>
 
-      <img :src="item.image_url" :alt="item.title" v-else>
+      <img :src="item" :alt="item.title" v-else>
 
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>

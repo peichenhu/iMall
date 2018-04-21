@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" ref="app">
 
     <transition>
       <keep-alive  :include="['home','types','account']"> <!-- 保留组件状态或避免重新渲染。 -->
@@ -72,7 +72,8 @@
     // 挂载开始之前被调用：相关的 render 函数首次被调用。
     mounted() {
       this.$nextTick(function () {
-
+          this.$refs.app.style.height = window.screen.availHeight+"px";
+          console.log(window.screen.availHeight)
       })
     },
     // el 被新创建的 vm.$el 替换，并挂载到实例上去之后调用该钩子。如果 root 实例挂载了一个文档内元素，当 mounted 被调用时 vm.$el 也在文档内。
