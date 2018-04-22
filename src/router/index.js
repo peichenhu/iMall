@@ -14,6 +14,8 @@ import Account from '../pages/account'
 import Product from '../pages/product'
 // 注册
 import Register from '../pages/register'
+// 临时页面
+import Other from '../pages/other'
 
 // 2. 定义路由
 const routes = [{
@@ -46,6 +48,11 @@ const routes = [{
     path: '/register',
     name: 'register',
     component: Register
+  },
+  {
+    path: '/other',
+    name: 'other',
+    component: Other
   }
 ]
 

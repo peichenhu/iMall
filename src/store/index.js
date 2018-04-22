@@ -57,9 +57,8 @@ export default new Vuex.Store({
     }
   },
   getters: {
-    getCart: state => state.cart,
-    getCollections: state => state.collections
-
+    cart: state => state.cart,
+    collections: state => state.collections
   },
   actions: {
     addCart({

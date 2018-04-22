@@ -13,7 +13,9 @@ import Navigation from './components/navigation'
 import BetterScroll from './components/betterScroll'
 import TopBar from './components/topBar'
 import Carousel from './components/carousel'
+import BackBar from './components/backbar'
 
+Vue.component('back-bar', BackBar);
 Vue.component('top-bar', TopBar);
 Vue.component('carousel', Carousel);
 Vue.component('navigation', Navigation);

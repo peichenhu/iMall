@@ -17,9 +17,12 @@
 
     </el-col>
     <el-col :span="3">
-      <el-button circle size="mini" :style="{padding:'5px'}">
-        <i class="iconfont icon-msg"></i>
-      </el-button>
+        <router-link :to="{ path: '/other', query: { title: '消息通知' }}">
+            <el-button circle size="mini" :style="{padding:'5px'}">
+                <i class="iconfont icon-msg"></i>
+            </el-button>
+
+        </router-link>
     </el-col>
   </el-row>
 
