@@ -18,7 +18,7 @@
               <el-checkbox :label="index" :disabled="isDissble"></el-checkbox>
             </div>
             <div>
-              <img src="https://oss.static.nubia.cn/pic/150777823783.jpg" alt="">
+              <img :src="item.product_images[0]" alt="">
             </div>
             <div>{{item.title}}
               <small>{{item.color}}{{item.storage}}</small>

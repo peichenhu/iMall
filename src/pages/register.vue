@@ -45,6 +45,7 @@
     }
     button {
       border-radius: 0;
+      padding: 10px 0;
       width: 100%;
       margin-top: 30px;
       margin-bottom: 15px;

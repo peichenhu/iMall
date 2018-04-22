@@ -10,29 +10,30 @@
     </div>
     <ul>
       <li v-for="(item, index) in LayoutTrainData.products_list" :key="index">
-      <router-link :to="{ name: 'product', params: { id: item.id }}">
+        <router-link :to="{ name: 'product', params: { id: item.id }}">
 
-        <p>
-          <img :src="item.product_images[0]" :alt="item.title">
-        </p>
-        <p>
-          <span>{{item.model}} {{item.storage}}</span>
-          <!-- <span v-if="item.sale!==''">{{item.sale}}</span> -->
-          <span>{{item.price+"元"}}
-            <small v-if="item.original_price!==''">
-              <del> {{item.original_price+"元"}}</del>
-            </small>
-          </span>
-        </p>
-        <div class="float_tag" v-if="item.sale_tag.is_need">
-          <span>{{item.sale_tag.text}}</span>
-        </div>
-      </router-link>
+          <p>
+            <img :src="item.product_images[0]" :alt="item.title">
+          </p>
+          <p>
+            <span>{{item.model}} {{item.storage}}</span>
+            <!-- <span v-if="item.sale!==''">{{item.sale}}</span> -->
+            <span>{{item.price+"元"}}
+              <small v-if="item.original_price!==''">
+                <del> {{item.original_price+"元"}}</del>
+              </small>
+            </span>
+          </p>
+          <div class="float_tag" v-if="item.sale_tag.is_need">
+            <span>{{item.sale_tag.text}}</span>
+          </div>
+        </router-link>
       </li>
     </ul>
     <div class="more">
       <router-link to="/types">
-        查看更多 <i class="iconfont icon-right"></i> 
+        查看更多
+        <i class="iconfont icon-right"></i>
       </router-link>
     </div>
   </el-row>
@@ -47,8 +48,8 @@
   @import '../assets/css/config.scss';
   .train {
     background-color: $snow;
-    h3{
-        padding: 10px;
+    h3 {
+      padding: 10px;
     }
     ul {
       display: flex;
@@ -95,10 +96,10 @@
         }
       }
     }
-    .more{
-        text-align: center;
-    height: 30px;
-    line-height: 30px;
+    .more {
+      text-align: center;
+      height: 40px;
+      line-height: 40px;
     }
   }
 

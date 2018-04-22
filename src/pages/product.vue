@@ -60,7 +60,7 @@
 
           </el-row>
           <!-- 产品参数 套装 -->
-          <Suit></Suit>
+          <!-- <Suit></Suit> -->
           <!-- 产品海报 -->
           <div v-html="poster"></div>
         </div>
