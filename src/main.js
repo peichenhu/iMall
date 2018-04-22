@@ -23,6 +23,7 @@ Vue.component('better-scroll', BetterScroll);
 
 // 模拟数据
 import './mock'
+import './assets/js/rem'
 
 // 在移动浏览器中单击事件时，将会等待大约300ms的时间。浏览器是等着看，如果你是真正执行双击
 import FastClick from 'fastclick'
