@@ -72,7 +72,7 @@
     // 挂载开始之前被调用：相关的 render 函数首次被调用。
     mounted() {
       this.$nextTick(function () {
-          this.$refs.app.style.height = window.screen.availHeight+"px";
+          this.$refs.app.style.height = window.innerHeight+"px";
           console.log(window.screen.availHeight)
       })
     },
